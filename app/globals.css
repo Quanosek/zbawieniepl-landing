@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+.safe-space {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1024px;
+}
+
+img {
+  user-select: none;
+}
+
+section {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex: 1;
+}
+
+.gradient-right {
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.5) 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+form input {
+  background-color: #ffffff;
+  padding: 12px;
+}
+
+button {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: translateY(1px);
+}
+
+.spread-shadow {
+  filter: drop-shadow(0 10px 60px rgba(0, 0, 0, 0.3));
+}
+
+.center-space {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 640px;
+}
+
+.tile {
+  display: flex;
+  gap: 30px;
+  background-color: #f0f0f0;
+  padding: 30px 40px;
+  flex: 1;
+  align-items: start;
+}
+
+.tile h3 {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 120%;
+}
+
+.tile div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  line-height: 140%;
+}
+
+.checklist-item {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  width: fit-content;
+}
+
+.checklist-item div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 100%;
+  padding: 8px;
+}
+
+.checklist-item p {
+  font-size: 16px;
+  line-height: 140%;
+}
+
+ol {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+ol li {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+ol li span {
+  padding: 4px;
+  width: 35px;
+  height: 35px;
+  aspect-ratio: 1/1;
+  background-color: #1e1e1e;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 140%;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
