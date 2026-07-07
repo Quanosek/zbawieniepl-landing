@@ -14,18 +14,18 @@ export default function Page() {
   return (
     <div>
       <section className="h-225">
-        <div className="safe-space relative top-50 z-20 flex items-start justify-between gap-6 text-white">
-          <div className="flex w-5/8 flex-col gap-6">
+        <div className="safe-space relative top-50 z-20 flex items-start justify-between text-white">
+          <div className="flex w-5/8 flex-col gap-6 pr-10">
             <h1 className="text-5xl leading-[1.2] font-bold">
               Pobierz darmowy PDF i&nbsp;poznaj Boży plan zapisany w&nbsp;Biblii
             </h1>
 
-            <p>
+            <p className="pr-5">
               Otrzymaj bezpłatnie pełną książkę, która w&nbsp;logiczny i&nbsp;przejrzysty sposób
               wyjaśnia główne nauki Biblii oraz Boży plan wobec człowieka.
             </p>
 
-            <p>
+            <p className="pr-5">
               Podaj e&#8209;mail, a&nbsp;wyślemy Ci PDF.
               <br />
               Poniżej możesz sprawdzić, jakie tematy znajdziesz w&nbsp;środku.

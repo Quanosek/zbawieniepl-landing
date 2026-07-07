@@ -3,7 +3,13 @@
 .safe-space {
   margin: 0 auto;
   width: 100%;
-  max-width: 1024px;
+  max-width: 1152px;
+}
+
+@media (max-width: 1152px) {
+  .safe-space {
+    padding: 0 3%;
+  }
 }
 
 img {
