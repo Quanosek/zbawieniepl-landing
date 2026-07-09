@@ -1,18 +1,46 @@
 "use client";
 
-import { BadgeCheck, Check, Lightbulb } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
+import { BadgeCheck, Check, Lightbulb } from "lucide-react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+
+import { SuccessModal } from "@/components/success-modal";
+import type { LeadFormValues } from "@/types/lead-form";
 
 export default function Page() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<LeadFormValues>({
+    defaultValues: {
+      firstName: "",
+      email: "",
+      newsletter: false,
+    },
+  });
 
-  const onSubmit = (data: unknown) => {
-    console.log(data);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+
+  const onSubmit = async (data: LeadFormValues) => {
+    const result = await axios.post("/api/lead", data, {
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (result.status === 200) {
+      setIsSuccessModalOpen(true);
+    }
+
+    reset();
   };
 
   return (
     <div>
+      <SuccessModal isOpen={isSuccessModalOpen} onClose={() => setIsSuccessModalOpen(false)} />
+
       <section className="h-225">
         <div className="safe-space relative top-50 z-20 flex items-start justify-between text-white">
           <div className="flex w-5/8 flex-col gap-6 pr-10">
@@ -35,12 +63,45 @@ export default function Page() {
           <form className="w-3/8 bg-[#E8E8E8] p-8 text-black" onSubmit={handleSubmit(onSubmit)}>
             <label>
               <p>Imię</p>
-              <input {...register("firstName")} />
+
+              <input
+                {...register("firstName", {
+                  required: "Podaj swoje imię",
+                  maxLength: {
+                    value: 100,
+                    message: "Maksymalnie 100 znaków",
+                  },
+                })}
+                autoComplete="given-name"
+                maxLength={100}
+              />
+
+              {errors.firstName && (
+                <p className="mt-1 text-xs text-red-700">{errors.firstName.message}</p>
+              )}
             </label>
 
             <label>
               <p>Adres e&#8209;mail</p>
-              <input {...register("email")} />
+
+              <input
+                {...register("email", {
+                  required: "Podaj swój adres e-mail",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Podaj poprawny adres e-mail",
+                  },
+                  maxLength: {
+                    value: 100,
+                    message: "Maksymalnie 100 znaków",
+                  },
+                })}
+                type="email"
+                autoComplete="email"
+                maxLength={100}
+              />
+
+              {errors.email && <p className="mt-1 text-xs text-red-700">{errors.email.message}</p>}
             </label>
 
             <div className="flex items-start gap-3">
@@ -63,8 +124,12 @@ export default function Page() {
               </p>
             </div>
 
-            <button type="submit" className="w-full bg-[#202020] py-3 font-semibold text-white">
-              Wyślij
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-[#202020] py-3 font-semibold text-white disabled:cursor-default disabled:opacity-60"
+            >
+              {isSubmitting ? "Wysyłanie..." : "Wyślij"}
             </button>
           </form>
         </div>
