@@ -9,7 +9,7 @@ export default function Header() {
         <Link href="https://zbawienie.pl" className="relative h-6 w-46 md:h-8">
           <Image
             style={{ objectFit: "contain" }}
-            src="/zbawienie.svg"
+            src="/zbawieniepl.svg"
             alt="Zbawienie.pl"
             draggable={false}
             loading="eager"

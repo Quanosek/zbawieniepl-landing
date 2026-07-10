@@ -1,33 +1,61 @@
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+
 import type { LeadFormValues } from "@/types/lead-form";
 
-export function buildLeadMailHtml(data: LeadFormValues): string {
-  return /* javascript */ `
-    <div style="font-family: Arial, sans-serif; color: #1f2937; line-height: 1.5; max-width: 640px; margin: 0 auto;">
-      <h1 style="font-size: 24px; margin-bottom: 16px;">Potwierdzenie zapisu</h1>
+export default class MailTemplate {
+  type: LeadFormValues["type"];
 
-      <p style="margin: 0 0 12px;">Cześć ${data.firstName},</p>
+  constructor(type: LeadFormValues["type"]) {
+    this.type = type;
+  }
 
-      <p style="margin: 0 0 16px;">
-        Dziękujemy za zamówienie e-booka "Boski Plan Wieków". Znajdziesz go w załączniku do tej wiadomości.
-      </p>
+  async buildLeadSubject(): Promise<string> {
+    switch (this.type) {
+      case "boski-plan-wiekow":
+        return "Twój egzemplarz książki - „Boski Plan Wieków”";
+      case "e-book":
+        return "Twój egzemplarz e-booka - „Dlaczego warto czytać Biblię?”";
+    }
+  }
 
-      <p style="margin: 0 0 16px;">
-        Zachęcamy Cię do przeczytania i podzielenia się opinią lub pytaniami na redakcja@zbawienie.pl
-      </p>
+  static getAttachmentName(type: LeadFormValues["type"]): string {
+    //* „Dziękujemy za zamówienie...”
+    switch (type) {
+      case "boski-plan-wiekow":
+        return "egzemplarza książki „Boski Plan Wieków”";
+      case "e-book":
+        return "e-booka „Dlaczego warto czytać Biblię?”";
+    }
+  }
 
-      <p style="margin: 0 0 16px;">
-        Jeśli chcesz porozmawiać na inne tematy dotyczące Pana Boga i Pisma Świętego, również zapraszamy Cię do kontaktu. Postaramy się odpowiedzieć na każdą wiadomość.
-      </p>
+  static interpolateLeadTemplate(template: string, data: LeadFormValues): string {
+    return template
+      .replaceAll("{FIRST_NAME}", data.firstName)
+      .replaceAll("{ATTACHMENT_TITLE}", MailTemplate.getAttachmentName(data.type));
+  }
 
-      <p style="margin: 0 0 16px;">
-        Zapraszamy również do odwiedzenia strony zbawienie.pl, gdzie znajdziesz wiele artykułów na tematy Biblijne, które opowiadają o Planie zbawienia ludzkości i o nadchodzącym Królestwie Bożym.
-      </p>
+  async buildLeadHtml(data: LeadFormValues): Promise<string> {
+    const templatePath = path.join(process.cwd(), "utils", "templates", `${data.type}.html`);
+    const templateContent = await readFile(templatePath, "utf8");
+    return MailTemplate.interpolateLeadTemplate(templateContent, data);
+  }
 
-      <p style="margin: 0 0 16px;">
-        Pozdrawiamy serdecznie
-        <br/>
-        Redakcja Zbawienie.pl
-      </p>
-    </div>
-  `;
+  async buildLeadAttachments(): Promise<{ filename: string; path: string }[]> {
+    //! Be careful with attachments names
+    //! Order matter here
+
+    const attachmentFileNames =
+      this.type === "boski-plan-wiekow"
+        ? [
+            "Boski Plan Wieków - Wykłady Pisma Świętego Tom 1.pdf",
+            "Boski Plan Wieków - schemat (załącznik 1).pdf",
+          ]
+        : ["e-book-cover.png"];
+
+    return attachmentFileNames.map((attachmentFileName) => ({
+      filename: attachmentFileName,
+      path: path.join(process.cwd(), "public", "attachments", attachmentFileName),
+    }));
+  }
 }

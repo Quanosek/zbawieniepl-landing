@@ -1,30 +1,47 @@
 import { NextResponse } from "next/server";
+import path from "node:path";
+import nodemailer from "nodemailer";
 
-import { getMailGatewayConfig } from "@/utils/mail-gateway";
-import { buildLeadMailHtml } from "@/utils/mail-template";
-import type { LeadFormValues } from "@/types/lead-form";
-
-function getLeadData(body: LeadFormValues) {
-  const firstName = typeof body.firstName === "string" ? body.firstName.trim() : "";
-  const email = typeof body.email === "string" ? body.email.trim() : "";
-  const newsletter = body.newsletter === true;
-
-  return { firstName, email, newsletter };
-}
+import MailTemplateClass from "@/utils/mail-template";
 
 export async function POST(request: Request) {
   const body = await request.json();
 
-  const leadData = getLeadData(body);
-  const gatewayConfig = getMailGatewayConfig();
+  const gatewayName = process.env.MAIL_GATEWAY_NAME ?? "smtp-default";
+
+  const gatewayConfig = {
+    gatewayName,
+    from: process.env.MAIL_FROM,
+    transporter: nodemailer.createTransport({
+      host: process.env.MAIL_SMTP_HOST,
+      port: Number(process.env.MAIL_SMTP_PORT),
+      secure: process.env.MAIL_SMTP_SECURE === "true",
+      auth: {
+        user: process.env.MAIL_SMTP_USER,
+        pass: process.env.MAIL_SMTP_PASS,
+      },
+    }),
+  };
+
+  const mailTemplate = new MailTemplateClass(body.type);
 
   try {
+    const logoPath = path.join(process.cwd(), "public", "zbawieniepl.png");
+
     await gatewayConfig.transporter.sendMail({
       from: gatewayConfig.from,
-      to: leadData.email,
-      subject: "Twój PDF - Boski Plan Wieków",
-      html: buildLeadMailHtml(leadData),
-      headers: { "X-Mail-Gateway-Name": gatewayConfig.gatewayName },
+      to: body.email,
+      subject: await mailTemplate.buildLeadSubject(),
+      html: await mailTemplate.buildLeadHtml(body),
+      attachments: [
+        ...(await mailTemplate.buildLeadAttachments()),
+        {
+          filename: "zbawieniepl.png",
+          path: logoPath,
+          cid: "zbawieniepl-logo",
+        },
+      ],
+      headers: { "X-Mail-Gateway-Name": gatewayName },
     });
 
     return NextResponse.json({ status: "success" });

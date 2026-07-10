@@ -10,7 +10,7 @@ export default function Footer() {
               objectFit: "contain",
               filter: "saturate(0) brightness(2)",
             }}
-            src="/zbawienie.svg"
+            src="/zbawieniepl.svg"
             alt="Zbawienie.pl"
             draggable={false}
             loading="eager"

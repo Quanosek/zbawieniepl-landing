@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["vercel", "zbawieniepl"]
+  "cSpell.words": ["vercel", "zbawieniepl"],
+  "files.readonlyInclude": {
+    ".next/*": true,
+    "node_modules/*": true,
+    "LICENSE": true,
+    "pnpm-lock.yaml": true,
+    "pnpm-workspace.yaml": true
+  }
 }

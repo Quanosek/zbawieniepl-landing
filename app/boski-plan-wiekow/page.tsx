@@ -1,40 +1,29 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { BadgeCheck, Check, Lightbulb } from "lucide-react";
-import { useForm } from "react-hook-form";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import { BadgeCheck, Lightbulb } from "lucide-react";
 
+import LeadForm from "@/components/lead-form";
 import { SuccessModal } from "@/components/success-modal";
-import type { LeadFormValues } from "@/types/lead-form";
 
 export default function Page() {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm<LeadFormValues>({
-    defaultValues: {
-      firstName: "",
-      email: "",
-      newsletter: false,
-    },
-  });
-
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [isSent, setIsSent] = useState(false);
 
-  const onSubmit = async (data: LeadFormValues) => {
-    const result = await axios.post("/api/lead", data, {
-      headers: { "Content-Type": "application/json" },
-    });
+  useEffect(() => {
+    if (!isSent) return;
 
-    if (result.status === 200) {
-      setIsSuccessModalOpen(true);
-    }
+    const timeoutId = window.setTimeout(() => {
+      setIsSent(false);
+    }, 3_000);
 
-    reset();
+    return () => window.clearTimeout(timeoutId);
+  }, [isSent]);
+
+  const handleSuccess = () => {
+    setIsSent(true);
+    setIsSuccessModalOpen(true);
   };
 
   return (
@@ -60,89 +49,7 @@ export default function Page() {
             </p>
           </div>
 
-          <form
-            className="mx-auto -mt-30 w-full max-w-xl translate-y-1/2 bg-[#E8E8E8] p-8 text-black md:m-0 md:mt-0 md:w-3/8 md:translate-y-0"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <label>
-              <p>Imię</p>
-
-              <input
-                {...register("firstName", {
-                  required: "Podaj swoje imię",
-                  maxLength: {
-                    value: 100,
-                    message: "Maksymalnie 100 znaków",
-                  },
-                })}
-                autoComplete="given-name"
-                maxLength={100}
-              />
-
-              {errors.firstName && (
-                <p className="mt-1 text-xs text-red-700">{errors.firstName.message}</p>
-              )}
-            </label>
-
-            <label>
-              <p>Adres e&#8209;mail</p>
-
-              <input
-                {...register("email", {
-                  required: "Podaj swój adres e-mail",
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "Podaj poprawny adres e-mail",
-                  },
-                  maxLength: {
-                    value: 100,
-                    message: "Maksymalnie 100 znaków",
-                  },
-                })}
-                type="email"
-                autoComplete="email"
-                maxLength={100}
-              />
-
-              {errors.email && <p className="mt-1 text-xs text-red-700">{errors.email.message}</p>}
-            </label>
-
-            <div className="flex items-start gap-3">
-              <label
-                htmlFor="newsletter"
-                className="mt-0.5 inline-flex cursor-pointer items-center"
-              >
-                <input
-                  id="newsletter"
-                  className="peer sr-only"
-                  type="checkbox"
-                  {...register("newsletter")}
-                />
-
-                <span className="flex size-5 items-center justify-center bg-white transition-colors peer-checked:bg-black [&>svg]:opacity-0 peer-checked:[&>svg]:opacity-100">
-                  <Check
-                    size={14}
-                    strokeWidth={3}
-                    className="text-white transition-opacity"
-                    aria-hidden="true"
-                  />
-                </span>
-              </label>
-
-              <p className="text-xs">
-                Wyrażam zgodę na przetwarzanie mojego adresu e&#8209;mail, w&nbsp;celu otrzymywania
-                newslettera.
-              </p>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-[#202020] py-3 font-semibold text-white disabled:cursor-default disabled:opacity-60"
-            >
-              {isSubmitting ? "Wysyłanie..." : "Wyślij"}
-            </button>
-          </form>
+          <LeadForm type="boski-plan-wiekow" isSent={isSent} onSuccess={handleSuccess} />
         </div>
 
         <div className="absolute inset-0">

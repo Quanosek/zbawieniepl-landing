@@ -1,46 +1,26 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { BadgeCheck, Check, Lightbulb } from "lucide-react";
-import { useForm } from "react-hook-form";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import { BadgeCheck, Lightbulb } from "lucide-react";
 
-import { SuccessModal } from "@/components/success-modal";
-import type { LeadFormValues } from "@/types/lead-form";
+import LeadForm from "@/components/lead-form";
 
 export default function Page() {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm<LeadFormValues>({
-    defaultValues: {
-      firstName: "",
-      email: "",
-      newsletter: false,
-    },
-  });
+  const [isSent, setIsSent] = useState(false);
 
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  useEffect(() => {
+    if (!isSent) return;
 
-  const onSubmit = async (data: LeadFormValues) => {
-    const result = await axios.post("/api/lead", data, {
-      headers: { "Content-Type": "application/json" },
-    });
+    const timeoutId = window.setTimeout(() => {
+      setIsSent(false);
+    }, 3_000);
 
-    if (result.status === 200) {
-      setIsSuccessModalOpen(true);
-    }
-
-    reset();
-  };
+    return () => window.clearTimeout(timeoutId);
+  }, [isSent]);
 
   return (
-    <div className={isSuccessModalOpen ? "max-h-screen overflow-hidden" : ""}>
-      <SuccessModal isOpen={isSuccessModalOpen} onClose={() => setIsSuccessModalOpen(false)} />
-
+    <div>
       <section className="relative pt-30 md:h-225 md:pt-0">
         <div className="safe-space relative z-20 flex flex-col items-start justify-between gap-8 text-white md:top-50 md:flex-row md:gap-12">
           <div className="ml-[3%] flex flex-col gap-6 md:ml-0 md:w-5/8">
@@ -60,89 +40,7 @@ export default function Page() {
             </p>
           </div>
 
-          <form
-            className="mx-auto -mt-30 w-full max-w-xl translate-y-1/2 bg-[#E8E8E8] p-8 text-black md:m-0 md:mt-0 md:w-3/8 md:translate-y-0"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <label>
-              <p>Imię</p>
-
-              <input
-                {...register("firstName", {
-                  required: "Podaj swoje imię",
-                  maxLength: {
-                    value: 100,
-                    message: "Maksymalnie 100 znaków",
-                  },
-                })}
-                autoComplete="given-name"
-                maxLength={100}
-              />
-
-              {errors.firstName && (
-                <p className="mt-1 text-xs text-red-700">{errors.firstName.message}</p>
-              )}
-            </label>
-
-            <label>
-              <p>Adres e&#8209;mail</p>
-
-              <input
-                {...register("email", {
-                  required: "Podaj swój adres e-mail",
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "Podaj poprawny adres e-mail",
-                  },
-                  maxLength: {
-                    value: 100,
-                    message: "Maksymalnie 100 znaków",
-                  },
-                })}
-                type="email"
-                autoComplete="email"
-                maxLength={100}
-              />
-
-              {errors.email && <p className="mt-1 text-xs text-red-700">{errors.email.message}</p>}
-            </label>
-
-            <div className="flex items-start gap-3">
-              <label
-                htmlFor="newsletter"
-                className="mt-0.5 inline-flex cursor-pointer items-center"
-              >
-                <input
-                  id="newsletter"
-                  className="peer sr-only"
-                  type="checkbox"
-                  {...register("newsletter")}
-                />
-
-                <span className="flex size-5 items-center justify-center bg-white transition-colors peer-checked:bg-black [&>svg]:opacity-0 peer-checked:[&>svg]:opacity-100">
-                  <Check
-                    size={14}
-                    strokeWidth={3}
-                    className="text-white transition-opacity"
-                    aria-hidden="true"
-                  />
-                </span>
-              </label>
-
-              <p className="text-xs">
-                Wyrażam zgodę na przetwarzanie mojego adresu e&#8209;mail, w&nbsp;celu otrzymywania
-                newslettera.
-              </p>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-[#202020] py-3 font-semibold text-white disabled:cursor-default disabled:opacity-60"
-            >
-              {isSubmitting ? "Wysyłanie..." : "Wyślij"}
-            </button>
-          </form>
+          <LeadForm type="e-book" isSent={isSent} onSuccess={() => setIsSent(true)} />
         </div>
 
         <div className="absolute inset-0">
