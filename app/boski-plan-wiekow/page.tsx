@@ -38,12 +38,12 @@ export default function Page() {
   };
 
   return (
-    <div>
+    <div className={isSuccessModalOpen ? "max-h-screen overflow-hidden" : ""}>
       <SuccessModal isOpen={isSuccessModalOpen} onClose={() => setIsSuccessModalOpen(false)} />
 
-      <section className="h-225">
-        <div className="safe-space relative top-50 z-20 flex items-start justify-between text-white">
-          <div className="flex w-5/8 flex-col gap-6 pr-10">
+      <section className="relative pt-30 md:h-225 md:pt-0">
+        <div className="safe-space relative z-20 flex flex-col items-start justify-between gap-8 text-white md:top-50 md:flex-row md:gap-12">
+          <div className="ml-[3%] flex flex-col gap-6 md:ml-0 md:w-5/8">
             <h1 className="text-5xl leading-[1.2] font-bold">
               Pobierz darmowy PDF i&nbsp;poznaj Boży plan zapisany w&nbsp;Biblii
             </h1>
@@ -60,7 +60,10 @@ export default function Page() {
             </p>
           </div>
 
-          <form className="w-3/8 bg-[#E8E8E8] p-8 text-black" onSubmit={handleSubmit(onSubmit)}>
+          <form
+            className="mx-auto -mt-30 w-full max-w-xl translate-y-1/2 bg-[#E8E8E8] p-8 text-black md:m-0 md:mt-0 md:w-3/8 md:translate-y-0"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <label>
               <p>Imię</p>
 
@@ -105,8 +108,16 @@ export default function Page() {
             </label>
 
             <div className="flex items-start gap-3">
-              <label className="mt-0.5 inline-flex cursor-pointer items-center">
-                <input className="peer sr-only" type="checkbox" {...register("newsletter")} />
+              <label
+                htmlFor="newsletter"
+                className="mt-0.5 inline-flex cursor-pointer items-center"
+              >
+                <input
+                  id="newsletter"
+                  className="peer sr-only"
+                  type="checkbox"
+                  {...register("newsletter")}
+                />
 
                 <span className="flex size-5 items-center justify-center bg-white transition-colors peer-checked:bg-black [&>svg]:opacity-0 peer-checked:[&>svg]:opacity-100">
                   <Check
@@ -140,7 +151,7 @@ export default function Page() {
           <Image
             style={{ objectFit: "cover" }}
             src="/images/background-wallpaper.jpg"
-            alt="Boski plan wieków"
+            alt=""
             draggable={false}
             loading="eager"
             fill
@@ -148,21 +159,39 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="flex-col items-start justify-center">
-        <div className="absolute -top-60 z-30 mx-auto h-140 w-full">
+      <section className="flex-col items-start justify-center pt-45.5 md:pt-0">
+        <div className="absolute -top-60 z-30 mx-auto hidden h-140 w-full md:block">
           <Image
             src="/images/boski-plan-wiekow.png"
             alt="Boski Plan Wieków"
             className="spread-shadow"
             fill
+            sizes="(min-width: 768px) 100vw, 0px"
             loading="eager"
             draggable={false}
             style={{ objectFit: "contain" }}
           />
         </div>
 
-        <div className="center-space mt-72! flex flex-col justify-center gap-6 text-center">
-          <h2 className="text-5xl leading-[1.2] font-bold">Co od nas otrzymasz?</h2>
+        <div className="spread-shadow-subtle relative block w-full flex-1 md:hidden">
+          <div className="relative my-5 h-75 w-full flex-1 overflow-hidden">
+            <Image
+              src="/images/boski-plan-wiekow.png"
+              alt="Boski Plan Wieków"
+              className="scale-[1.2]"
+              fill
+              sizes="(max-width: 768px) 95vw, 100vw"
+              loading="eager"
+              draggable={false}
+              style={{ objectFit: "contain" }}
+            />
+          </div>
+        </div>
+
+        <div className="center-space flex flex-col justify-center gap-6 text-center md:mt-72!">
+          <h2 className="mx-auto max-w-[20ch] text-[44px] leading-[1.2] font-bold md:max-w-none md:text-5xl">
+            Co od nas otrzymasz?
+          </h2>
 
           <p className="font-semibold">
             „Boski Plan Wieków” to pierwszy tom klasycznego dzieła Charlesa T. Russella, które
@@ -179,8 +208,8 @@ export default function Page() {
           <p>W środku znajdziesz m.in.:</p>
         </div>
 
-        <div className="safe-space my-12! grid grid-cols-2 gap-5">
-          <div className="tile">
+        <div className="safe-space my-12! flex flex-col gap-5 md:grid md:grid-cols-2">
+          <div className="tile flex-col md:flex-row">
             <div className="flex aspect-square items-center justify-center rounded-full bg-[#1e1e1e] p-4">
               <Lightbulb size={18} color="white" />
             </div>
@@ -191,7 +220,7 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="tile">
+          <div className="tile flex-col md:flex-row">
             <div className="flex aspect-square items-center justify-center rounded-full bg-[#1e1e1e] p-4">
               <Lightbulb size={18} color="white" />
             </div>
@@ -202,7 +231,7 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="tile">
+          <div className="tile flex-col md:flex-row">
             <div className="flex aspect-square items-center justify-center rounded-full bg-[#1e1e1e] p-4">
               <Lightbulb size={18} color="white" />
             </div>
@@ -213,7 +242,7 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="tile">
+          <div className="tile flex-col md:flex-row">
             <div className="flex aspect-square items-center justify-center rounded-full bg-[#1e1e1e] p-4">
               <Lightbulb size={18} color="white" />
             </div>
@@ -226,7 +255,7 @@ export default function Page() {
         </div>
 
         <button
-          className="mx-auto mb-26 w-75 bg-[#202020] py-3 font-semibold text-white"
+          className="mx-auto mb-26 w-75 max-w-[90%] bg-[#202020] py-3 font-semibold text-white"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
           Uzupełnij formularz
@@ -235,7 +264,7 @@ export default function Page() {
 
       <section className="overflow-hidden bg-[#1e1e1e] text-white">
         <div className="center-space z-10 text-center">
-          <h2 className="mt-20 text-5xl leading-[1.2] font-bold">
+          <h2 className="mx-auto mt-20 max-w-[20ch] text-[44px] leading-[1.2] font-bold md:max-w-none md:text-5xl">
             Dlaczego warto się z&nbsp;tym zapoznać?
           </h2>
 
@@ -280,14 +309,14 @@ export default function Page() {
           </ul>
 
           <button
-            className="mx-auto mb-26 w-75 bg-white py-3 font-semibold text-black"
+            className="mx-auto mb-26 w-75 max-w-[90%] bg-white py-3 font-semibold text-black"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             Uzupełnij formularz
           </button>
         </div>
 
-        <div className="absolute -top-45 -left-65 z-0 h-250 w-250 opacity-15">
+        <div className="absolute -top-45 -left-65 z-0 h-250 w-250 opacity-5 md:opacity-15">
           <Image
             className="spread-shadow"
             src="/images/book-with-hand.png"
@@ -302,7 +331,7 @@ export default function Page() {
 
       <section className="flex-col items-center bg-[#f0f0f0]">
         <div className="center-space text-center">
-          <h2 className="mt-20 text-5xl leading-[1.2] font-bold">
+          <h2 className="mx-auto mt-20 max-w-[20ch] text-[44px] leading-[1.2] font-bold md:max-w-none md:text-5xl">
             Jakie tematy znajdziesz w&nbsp;środku?
           </h2>
 
@@ -313,7 +342,7 @@ export default function Page() {
 
           <p className="mt-6 leading-[1.4]">Oto część z&nbsp;nich:</p>
 
-          <div className="mt-10 flex flex-col bg-white px-18 py-12">
+          <div className="mt-10 flex flex-col bg-white px-6 py-7 text-start md:px-18 md:py-12">
             <ol>
               <li>
                 <span>1</span>

@@ -13,12 +13,9 @@ const openSans = Open_Sans({
 
 export const metadata: Metadata = {
   title: "Zbawienie.pl",
-  icons: {
-    icon: [
-      { url: "/assets/favicon.ico", sizes: "any" },
-      { url: "/assets/icon.svg", type: "image/svg+xml" },
-    ],
-    apple: [{ url: "/assets/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  robots: {
+    index: false,
+    follow: false,
   },
 };
 

@@ -62,10 +62,20 @@ button:hover {
   filter: drop-shadow(0 10px 60px rgba(0, 0, 0, 0.3));
 }
 
+.spread-shadow-subtle {
+  filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.2));
+}
+
 .center-space {
   margin: 0 auto;
   width: 100%;
   max-width: 640px;
+}
+
+@media (max-width: 640px) {
+  .center-space {
+    padding: 0 5%;
+  }
 }
 
 .tile {

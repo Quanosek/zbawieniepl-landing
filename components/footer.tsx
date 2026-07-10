@@ -3,8 +3,8 @@ import Image from "next/image";
 export default function Footer() {
   return (
     <footer className="w-full bg-[#cccccc]">
-      <div className="safe-space flex items-center gap-12 py-8">
-        <div className="relative h-8 w-46">
+      <div className="safe-space flex flex-col py-8! md:flex-row md:items-center md:gap-12">
+        <div className="relative ml-[3%] h-8 w-46 md:ml-0">
           <Image
             style={{
               objectFit: "contain",
@@ -18,7 +18,7 @@ export default function Footer() {
           />
         </div>
 
-        <div className="flex flex-col gap-1 text-[#ffffff]">
+        <div className="mt-2 ml-[3%] flex flex-col gap-2 text-[#ffffff] md:mt-0 md:ml-0 md:gap-1">
           <p>
             Strona zbawienie.pl przedstawia Boski plan zbawienia ludzkości ukazany w Piśmie Świętym.
           </p>
