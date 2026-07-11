@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 
@@ -26,6 +29,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Header />
         <main className="w-full flex-1">{children}</main>
         <Footer />
+
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
