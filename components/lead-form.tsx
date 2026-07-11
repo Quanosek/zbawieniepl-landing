@@ -46,9 +46,7 @@ export default function LeadForm({ type, isSent, onSuccess }: LeadFormProps) {
 
   return (
     <form
-      className={`mx-auto -mt-30 w-full max-w-xl translate-y-1/2 bg-[#E8E8E8] p-8 text-black md:m-0 md:mt-0 md:w-3/8 md:translate-y-0 ${
-        isLocked ? "cursor-not-allowed" : ""
-      }`}
+      className="mx-auto -mt-30 w-full max-w-xl translate-y-1/2 bg-[#E8E8E8] p-8 text-black md:m-0 md:mt-0 md:w-3/8 md:translate-y-0"
       onSubmit={handleSubmit(onSubmit)}
     >
       <label>
@@ -69,7 +67,7 @@ export default function LeadForm({ type, isSent, onSuccess }: LeadFormProps) {
           maxLength={100}
           inputMode="text"
           disabled={isLocked}
-          className="transition-colors disabled:cursor-not-allowed disabled:bg-[#d6d6d6] disabled:text-[#6a6a6a]"
+          className="transition-colors disabled:cursor-not-allowed disabled:bg-[#dadada]! disabled:text-[#6a6a6a]"
         />
 
         {errors.firstName && (
@@ -96,7 +94,7 @@ export default function LeadForm({ type, isSent, onSuccess }: LeadFormProps) {
           autoComplete="email"
           maxLength={100}
           disabled={isLocked}
-          className="transition-colors disabled:cursor-not-allowed disabled:bg-[#d6d6d6] disabled:text-[#6a6a6a]"
+          className="transition-colors disabled:cursor-not-allowed disabled:bg-[#dadada]! disabled:text-[#6a6a6a]"
         />
 
         {errors.email && <p className="mt-1 text-xs text-red-700">{errors.email.message}</p>}
@@ -115,7 +113,7 @@ export default function LeadForm({ type, isSent, onSuccess }: LeadFormProps) {
             disabled={isLocked}
           />
 
-          <span className="flex size-5 items-center justify-center bg-white transition-colors peer-checked:bg-black peer-disabled:bg-[#d6d6d6] [&>svg]:opacity-0 peer-checked:[&>svg]:opacity-100">
+          <span className="flex size-5 items-center justify-center bg-white transition-colors peer-checked:bg-black peer-disabled:bg-[#dadada] [&>svg]:opacity-0 peer-checked:[&>svg]:opacity-100">
             <Check
               size={14}
               strokeWidth={3}
@@ -134,7 +132,7 @@ export default function LeadForm({ type, isSent, onSuccess }: LeadFormProps) {
       <button
         type="submit"
         disabled={isLocked}
-        className={`w-full py-3 font-semibold text-white transition-colors duration-300 disabled:cursor-not-allowed ${
+        className={`w-full py-3 font-semibold text-white transition-colors duration-300 disabled:transform-none! disabled:cursor-not-allowed! ${
           isSent ? "bg-emerald-600" : "bg-[#202020] disabled:bg-[#4b4b4b] disabled:opacity-100"
         }`}
       >
