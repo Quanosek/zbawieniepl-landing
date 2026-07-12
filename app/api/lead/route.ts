@@ -26,40 +26,40 @@ export async function POST(request: Request) {
   const mailTemplate = new MailTemplateClass(body.type);
 
   try {
+    const [subject, leadHtml, deliveryLogHtml, leadAttachments] = await Promise.all([
+      mailTemplate.buildLeadSubject(),
+      mailTemplate.buildLeadHtml(body),
+      mailTemplate.buildDeliveryLog(body),
+      mailTemplate.buildLeadAttachments(),
+    ]);
+
     const inlineLogos = [
       {
-        filename: "zbawieniepl-black.png",
-        path: path.join(process.cwd(), "public", "zbawieniepl-black.png"),
-        cid: "zbawieniepl-logo-light",
-        contentDisposition: "inline" as const,
-      },
-      {
-        filename: "zbawieniepl-white.png",
-        path: path.join(process.cwd(), "public", "zbawieniepl-white.png"),
-        cid: "zbawieniepl-logo-dark",
+        filename: "zbawieniepl.png",
+        path: path.join(process.cwd(), "public", "zbawieniepl.png"),
+        cid: "zbawieniepl-logo",
         contentDisposition: "inline" as const,
       },
     ];
 
-    // Send message to user
-    await gatewayConfig.transporter.sendMail({
-      from: gatewayConfig.from,
-      to: body.email,
-      subject: await mailTemplate.buildLeadSubject(),
-      html: await mailTemplate.buildLeadHtml(body),
-      attachments: [...(await mailTemplate.buildLeadAttachments()), ...inlineLogos],
-      headers: { "X-Mail-Gateway-Name": gatewayName },
-    });
-
-    // Send message to log address
-    await gatewayConfig.transporter.sendMail({
-      from: gatewayConfig.from,
-      to: process.env.MAIL_DELIVERY_LOG_ADDRESS,
-      subject: "Złożono nowe zamówienie przez stronę Zbawienie.pl",
-      html: await mailTemplate.buildDeliveryLog(body),
-      attachments: inlineLogos,
-      headers: { "X-Mail-Gateway-Name": gatewayName },
-    });
+    await Promise.all([
+      gatewayConfig.transporter.sendMail({
+        from: gatewayConfig.from,
+        to: body.email,
+        subject,
+        html: leadHtml,
+        attachments: [...leadAttachments, ...inlineLogos],
+        headers: { "X-Mail-Gateway-Name": gatewayName },
+      }),
+      gatewayConfig.transporter.sendMail({
+        from: gatewayConfig.from,
+        to: process.env.MAIL_DELIVERY_LOG_ADDRESS,
+        subject: "Złożono nowe zamówienie przez stronę Zbawienie.pl",
+        html: deliveryLogHtml,
+        attachments: [...inlineLogos],
+        headers: { "X-Mail-Gateway-Name": gatewayName },
+      }),
+    ]);
 
     return NextResponse.json({ status: "success" });
   } catch (error) {

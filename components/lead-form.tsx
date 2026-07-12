@@ -136,7 +136,7 @@ export default function LeadForm({ type, isSent, onSuccess }: LeadFormProps) {
           isSent ? "bg-emerald-600" : "bg-[#202020] disabled:bg-[#4b4b4b] disabled:opacity-100"
         }`}
       >
-        {isSent ? "Wysłano" : isSubmitting ? "Wysyłanie..." : "Wyślij"}
+        {isSent ? "Wysłano" : isSubmitting ? "Wysyłanie..." : "Zamawiam bezpłatny egzemplarz"}
       </button>
     </form>
   );

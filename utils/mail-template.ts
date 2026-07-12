@@ -5,6 +5,8 @@ import { format } from "date-fns";
 import type { LeadFormValues } from "@/types/lead-form";
 
 export default class MailTemplate {
+  static templateCache = new Map<string, string>();
+
   type: LeadFormValues["type"];
 
   constructor(type: LeadFormValues["type"]) {
@@ -36,9 +38,23 @@ export default class MailTemplate {
       .replace("{ATTACHMENT_TITLE}", MailTemplate.getAttachmentTitle(data.type));
   }
 
-  async buildLeadHtml(data: LeadFormValues): Promise<string> {
-    const templatePath = path.join(process.cwd(), "utils", "templates", `${data.type}.html`);
+  static async readTemplate(templateName: string): Promise<string> {
+    const cachedTemplate = MailTemplate.templateCache.get(templateName);
+
+    if (cachedTemplate) {
+      return cachedTemplate;
+    }
+
+    const templatePath = path.join(process.cwd(), "utils", "templates", templateName);
     const templateContent = await readFile(templatePath, "utf8");
+
+    MailTemplate.templateCache.set(templateName, templateContent);
+
+    return templateContent;
+  }
+
+  async buildLeadHtml(data: LeadFormValues): Promise<string> {
+    const templateContent = await MailTemplate.readTemplate(`${data.type}.html`);
     return MailTemplate.interpolateLeadTemplate(templateContent, data);
   }
 
@@ -79,8 +95,7 @@ export default class MailTemplate {
   }
 
   async buildDeliveryLog(data: LeadFormValues): Promise<string> {
-    const templatePath = path.join(process.cwd(), "utils", "templates", `delivery-log.html`);
-    const templateContent = await readFile(templatePath, "utf8");
+    const templateContent = await MailTemplate.readTemplate("delivery-log.html");
     return MailTemplate.interpolateLogTemplate(templateContent, data);
   }
 }
