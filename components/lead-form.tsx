@@ -3,6 +3,8 @@
 import axios from "axios";
 import { Check } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { event as gaEvent } from "nextjs-google-analytics";
+import { track as vercelTrack } from "@vercel/analytics";
 
 import type { LeadFormValues } from "@/types/lead-form";
 
@@ -31,6 +33,17 @@ export default function LeadForm({ type, isSent, onSuccess }: LeadFormProps) {
 
   const sanitizeNameInput = (value: string) =>
     value.replace(/[^\p{L}\s]/gu, "").replace(/\s{2,}/g, " ");
+
+  const trackSubmitButtonClick = () => {
+    const payload = {
+      category: "lead_form",
+      label: type,
+      form_type: type,
+    };
+
+    gaEvent("lead_form_submit_click", payload);
+    vercelTrack("lead_form_submit_click", { formType: type });
+  };
 
   const onSubmit = async (data: LeadFormValues) => {
     const result = await axios.post("/api/lead", data, {
@@ -132,6 +145,7 @@ export default function LeadForm({ type, isSent, onSuccess }: LeadFormProps) {
       <button
         type="submit"
         disabled={isLocked}
+        onClick={trackSubmitButtonClick}
         className={`w-full py-3 font-semibold text-white transition-colors duration-300 disabled:transform-none! disabled:cursor-not-allowed! ${
           isSent ? "bg-emerald-600" : "bg-[#202020] disabled:bg-[#4b4b4b] disabled:opacity-100"
         }`}

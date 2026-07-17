@@ -1,15 +1,6 @@
-packages:
-  - "*"
-
 allowBuilds:
-  "@parcel/watcher": true
+  '@parcel/watcher': true
   sharp: true
   unrs-resolver: true
-
-ignoredBuiltDependencies:
-  - sharp
-  - unrs-resolver
-
 minimumReleaseAgeExclude:
-  - lucide-react@1.24.0
-  - prettier@3.9.5
+  - lucide-react@1.25.0

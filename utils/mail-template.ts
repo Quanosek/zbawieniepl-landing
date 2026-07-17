@@ -14,10 +14,11 @@ export default class MailTemplate {
   }
 
   async buildLeadSubject(): Promise<string> {
+    //* TYTUŁ”
     switch (this.type) {
       case "boski-plan-wiekow":
         return "Twój egzemplarz książki - „Boski Plan Wieków”";
-      case "e-book":
+      case "dlaczego-warto":
         return "Twój egzemplarz e-booka - „Dlaczego warto czytać Biblię?”";
     }
   }
@@ -27,7 +28,7 @@ export default class MailTemplate {
     switch (type) {
       case "boski-plan-wiekow":
         return "egzemplarza książki „Boski Plan Wieków”";
-      case "e-book":
+      case "dlaczego-warto":
         return "e-booka „Dlaczego warto czytać Biblię?”";
     }
   }
@@ -68,7 +69,7 @@ export default class MailTemplate {
             "Boski Plan Wieków - Wykłady Pisma Świętego Tom 1.pdf",
             "Boski Plan Wieków - schemat (załącznik 1).pdf",
           ]
-        : ["e-book-cover.png"];
+        : ["Dlaczego warto czytać Biblię.pdf"];
 
     return attachmentFileNames.map((attachmentFileName) => ({
       filename: attachmentFileName,
@@ -77,10 +78,11 @@ export default class MailTemplate {
   }
 
   static getAttachmentName(type: LeadFormValues["type"]): string {
+    //* Nazwa załącznika”
     switch (type) {
       case "boski-plan-wiekow":
         return "„Boski Plan Wieków”";
-      case "e-book":
+      case "dlaczego-warto":
         return "„Dlaczego warto czytać Biblię?”";
     }
   }

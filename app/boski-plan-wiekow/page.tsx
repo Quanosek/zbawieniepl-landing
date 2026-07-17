@@ -33,7 +33,7 @@ export default function Page() {
       <section className="relative pt-30 md:h-225 md:pt-0">
         <div className="safe-space relative z-20 flex flex-col items-start justify-between gap-8 text-white md:top-50 md:flex-row md:gap-12">
           <div className="ml-[3%] flex flex-col gap-6 md:ml-0 md:w-5/8">
-            <h1 className="text-5xl leading-[1.2] font-bold">
+            <h1 className="text-4xl leading-[1.2] font-bold md:text-5xl">
               Pobierz darmowy PDF i&nbsp;poznaj Boży plan zapisany w&nbsp;Biblii
             </h1>
 
@@ -60,7 +60,9 @@ export default function Page() {
             src="/images/background-wallpaper.jpg"
             alt=""
             draggable={false}
-            loading="eager"
+            priority
+            fetchPriority="high"
+            sizes="100vw"
             fill
           />
         </div>

@@ -24,7 +24,7 @@ export default function Page() {
       <section className="relative pt-30 md:h-225 md:pt-0">
         <div className="safe-space relative z-20 flex flex-col items-start justify-between gap-8 text-white md:top-50 md:flex-row md:gap-12">
           <div className="ml-[3%] flex flex-col gap-6 md:ml-0 md:w-5/8">
-            <h1 className="text-5xl leading-[1.2] font-bold">
+            <h1 className="text-4xl leading-[1.2] font-bold md:text-5xl">
               Pobierz darmowy PDF o&nbsp;tym, dlaczego warto czytać Biblię
             </h1>
 
@@ -40,7 +40,7 @@ export default function Page() {
             </p>
           </div>
 
-          <LeadForm type="e-book" isSent={isSent} onSuccess={() => setIsSent(true)} />
+          <LeadForm type="dlaczego-warto" isSent={isSent} onSuccess={() => setIsSent(true)} />
         </div>
 
         <div className="absolute inset-0">
@@ -51,7 +51,9 @@ export default function Page() {
             src="/images/ludovic-fremondiere-386803-unsplash.jpg"
             alt=""
             draggable={false}
-            loading="eager"
+            priority
+            fetchPriority="high"
+            sizes="100vw"
             fill
           />
         </div>
@@ -60,7 +62,7 @@ export default function Page() {
       <section className="flex-col items-start justify-center pt-45.5 md:pt-0">
         <div className="absolute -top-45 z-30 mx-auto hidden h-100 w-full md:block">
           <Image
-            src="/images/e-book-cover.png"
+            src="/images/dlaczego-warto-cover.png"
             alt="Dlaczego warto czytać Biblię"
             className="spread-shadow"
             fill
@@ -74,7 +76,7 @@ export default function Page() {
         <div className="spread-shadow-subtle relative block w-full flex-1 md:hidden">
           <div className="relative my-5 h-75 w-full flex-1 overflow-hidden">
             <Image
-              src="/images/e-book-cover.png"
+              src="/images/dlaczego-warto-cover.png"
               alt="Dlaczego warto czytać Biblię"
               className="scale-[0.85]"
               fill

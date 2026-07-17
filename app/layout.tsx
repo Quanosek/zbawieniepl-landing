@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
+import { SpeedInsights as VercelSpeedInsights } from "@vercel/speed-insights/next";
 
+import Analytics from "@/components/analytics";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 
@@ -25,13 +26,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pl" className={`${openSans.variable} h-full antialiased`}>
+      <Analytics />
+
       <body className="flex min-h-full flex-col bg-[#ffffff] text-[#1e1e1e]">
         <Header />
         <main className="w-full flex-1">{children}</main>
         <Footer />
 
-        <Analytics />
-        <SpeedInsights />
+        <VercelAnalytics />
+        <VercelSpeedInsights />
       </body>
     </html>
   );

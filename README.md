@@ -10,7 +10,7 @@ Landing pages for [Zbawienie.pl](https://zbawienie.pl) that allow visitors to or
 - HTML e-mail templates with light and dark mode support
 - Independent landing pages:
   - `/boski-plan-wiekow` — book "Boski Plan Wieków"
-  - `/e-book` — e-book "Dlaczego warto czytać Biblię?"
+  - `/dlaczego-warto` — e-book "Dlaczego warto czytać Biblię?"
 
 ## Requirements
 
