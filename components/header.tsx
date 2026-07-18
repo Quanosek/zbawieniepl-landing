@@ -41,8 +41,11 @@ export default function Header() {
           </ul>
         </Link>
 
-        <Link href="https://zbawienie.pl" className="my-3 block py-2 md:hidden">
-          <Menu size={22} strokeWidth={3} color="#ffffff" />
+        <Link
+          href="https://zbawienie.pl"
+          className="relative bottom-0.5 my-3.5 block p-2 md:hidden"
+        >
+          <Menu size={16} strokeWidth={4} color="#ffffff" />
         </Link>
       </div>
     </header>
