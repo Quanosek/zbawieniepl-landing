@@ -17,25 +17,25 @@
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
-    "axios": "^1.18.1",
+    "axios": "^1.20.0",
     "date-fns": "^4.4.0",
-    "lucide-react": "^1.25.0",
+    "lucide-react": "^1.41.0",
     "next": "16.2.11",
     "nextjs-google-analytics": "^2.3.7",
-    "nodemailer": "^9.0.3",
+    "nodemailer": "^9.1.1",
     "react": "19.2.7",
     "react-dom": "19.2.7",
-    "react-hook-form": "^7.81.0"
+    "react-hook-form": "^7.87.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "~24.13.3",
     "@types/nodemailer": "^8.0.1",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
     "eslint": "~9.39.5",
     "eslint-config-next": "16.2.10",
-    "prettier": "^3.9.5",
+    "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3",
     "typescript": "~5.9.3"
