@@ -9,9 +9,11 @@
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint",
-    "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "format": "prettier --write .",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "validate": "format && lint:fix",
     "precommit": "format:check && lint"
   },
   "dependencies": {
@@ -19,7 +21,7 @@
     "@vercel/speed-insights": "^2.0.0",
     "axios": "^1.20.0",
     "date-fns": "^4.4.0",
-    "lucide-react": "^1.41.0",
+    "lucide-react": "^1.43.0",
     "next": "16.2.11",
     "nextjs-google-analytics": "^2.3.7",
     "nodemailer": "^9.1.1",
