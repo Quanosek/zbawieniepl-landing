@@ -37,9 +37,7 @@ export default function Page() {
         id="ecomail-boski-plan-wiekow"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
-          __html: /* html */ `
-            <!-- Ecomail starts -->
-            <script type="text/javascript">
+          __html: /* js */ `
             ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
             p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
             };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
@@ -49,8 +47,6 @@ export default function Page() {
             });
             window.ecotrack('setUserIdFromLocation', 'ecmid');
             window.ecotrack('trackPageView');
-            </script>
-            <!-- Ecomail stops -->
           `,
         }}
       />
