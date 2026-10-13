@@ -5,8 +5,9 @@ Landing pages for [Zbawienie.pl](https://zbawienie.pl) that allow visitors to or
 ## Features
 
 - Lead capture form with validation (name, e-mail, newsletter consent)
-- Confirmation e-mail sent to the user with the requested file as an attachment
+- Requested file delivered by e-mail; newsletter opt-ins from `/boski-plan-wiekow` are handled by Ecomail
 - Internal order log e-mail sent to an administrative address
+- Newsletter opt-ins from `/boski-plan-wiekow` are added to the configured Ecomail list
 - HTML e-mail templates with light and dark mode support
 - Independent landing pages:
   - `/boski-plan-wiekow` — book "Boski Plan Wieków"
@@ -16,6 +17,14 @@ Landing pages for [Zbawienie.pl](https://zbawienie.pl) that allow visitors to or
 
 - Node.js v24
 - pnpm v11
+
+## Ecomail
+
+Set `ECOMAIL_API_KEY` and `ECOMAIL_BOSKI_PLAN_LIST_ID` in the deployment environment. The LP
+allows submitting the form without newsletter consent. When consent is checked, the contact is
+added to Ecomail and configured autoresponders are triggered. The site's confirmation e-mail
+with the requested file is sent in both cases; without consent, the contact is not added to
+Ecomail.
 
 ## Commands
 

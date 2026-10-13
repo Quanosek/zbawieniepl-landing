@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import path from "node:path";
 import nodemailer from "nodemailer";
 
+import { subscribeToEcomail } from "@/utils/ecomail";
 import MailTemplateClass from "@/utils/mail-template";
 
 export async function POST(request: Request) {
@@ -42,15 +43,9 @@ export async function POST(request: Request) {
       },
     ];
 
-    await Promise.all([
-      gatewayConfig.transporter.sendMail({
-        from: gatewayConfig.from,
-        to: body.email,
-        subject,
-        html: leadHtml,
-        attachments: [...leadAttachments, ...inlineLogos],
-        headers: { "X-Mail-Gateway-Name": gatewayName },
-      }),
+    const shouldUseEcomail = body.type === "boski-plan-wiekow" && body.newsletter === true;
+
+    const tasks: Promise<unknown>[] = [
       gatewayConfig.transporter.sendMail({
         from: gatewayConfig.from,
         to: process.env.MAIL_DELIVERY_LOG_ADDRESS,
@@ -59,7 +54,21 @@ export async function POST(request: Request) {
         attachments: [...inlineLogos],
         headers: { "X-Mail-Gateway-Name": gatewayName },
       }),
-    ]);
+      gatewayConfig.transporter.sendMail({
+        from: gatewayConfig.from,
+        to: body.email,
+        subject,
+        html: leadHtml,
+        attachments: [...leadAttachments, ...inlineLogos],
+        headers: { "X-Mail-Gateway-Name": gatewayName },
+      }),
+    ];
+
+    if (shouldUseEcomail) {
+      tasks.push(subscribeToEcomail({ email: body.email, name: body.firstName }));
+    }
+
+    await Promise.all(tasks);
 
     return NextResponse.json({ status: "success" });
   } catch (error) {
