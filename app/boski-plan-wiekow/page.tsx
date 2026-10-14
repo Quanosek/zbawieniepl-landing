@@ -66,9 +66,8 @@ export default function Page() {
             </p>
 
             <p className="pr-5">
-              Podaj e&#8209;mail, a&nbsp;wyślemy Ci PDF.
-              <br />
-              Poniżej możesz sprawdzić, jakie tematy znajdziesz w&nbsp;środku.
+              Wypełnij formularz obok i&nbsp;zapisz się do newslettera, a&nbsp;wyślemy Ci plik
+              e-mailem.
             </p>
           </div>
 
@@ -133,7 +132,7 @@ export default function Page() {
 
           <p>
             Autor pokazuje, jak wydarzenia przeszłości, teraźniejszości i&nbsp;przyszłości łączą się
-            w&nbsp;jedną całość – wyjaśnia m.in. sens istnienia zła, rolę Jezusa Chrystusa oraz
+            w&nbsp;jedną całość - wyjaśnia m.in. sens istnienia zła, rolę Jezusa Chrystusa oraz
             nadzieję na odnowienie świata i&nbsp;perspektywę życia wiecznego dla wszystkich ludzi.
           </p>
 
@@ -148,7 +147,7 @@ export default function Page() {
 
             <div>
               <h3>Spójne wyjaśnienie Biblii</h3>
-              <p>Jak różne jej części łączą się w&nbsp;jeden, logiczny plan Boga</p>
+              <p>Jak różne jej części łączą się w&nbsp;spójny plan Boga</p>
             </div>
           </div>
 
@@ -158,8 +157,8 @@ export default function Page() {
             </div>
 
             <div>
-              <h3>Nadzieję na przyszłość</h3>
-              <p>Wizję odnowienia świata i&nbsp;realnej szansy na życie wieczne dla wszystkich</p>
+              <h3>Nadzieja na przyszłość</h3>
+              <p>Wizję odnowienia świata i&nbsp;szansę na życie wieczne dla wszystkich</p>
             </div>
           </div>
 
@@ -170,7 +169,7 @@ export default function Page() {
 
             <div>
               <h3>Zrozumienie roli Jezusa Chrystusa</h3>
-              <p>Kim jest i&nbsp;jaką rolę pełni w&nbsp;przyszłości ludzkości</p>
+              <p>Kim jest Jezus Chrystus i&nbsp;jaką rolę pełni w&nbsp;przyszłości ludzkości</p>
             </div>
           </div>
 
@@ -181,13 +180,13 @@ export default function Page() {
 
             <div>
               <h3>Odpowiedzi na trudne pytania</h3>
-              <p>Dlaczego istnieje zło i&nbsp;jaki ma sens w&nbsp;Bożym zamyśle</p>
+              <p>Dlaczego istnieje zło i&nbsp;jakie miejsce zajmuje w&nbsp;Bożym zamyśle</p>
             </div>
           </div>
         </div>
 
         <button
-          className="mx-auto mb-26 w-75 max-w-[90%] bg-[#202020] py-3 font-semibold text-white"
+          className="mx-auto mb-26 w-75 max-w-[90%] bg-[#e1d122] py-3 font-semibold text-black"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
           Uzupełnij formularz
@@ -241,7 +240,7 @@ export default function Page() {
           </ul>
 
           <button
-            className="mx-auto mb-26 w-75 max-w-[90%] bg-white py-3 font-semibold text-black"
+            className="mx-auto mb-26 w-75 max-w-[90%] bg-[#e1d122] py-3 font-semibold text-black"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             Uzupełnij formularz
@@ -269,7 +268,7 @@ export default function Page() {
 
           <p className="mt-8 leading-[1.4]">
             Materiał porusza najważniejsze zagadnienia związane z&nbsp;Biblią i&nbsp;Bożym planem
-            wobec ludzkości – w&nbsp;uporządkowany i&nbsp;zrozumiały sposób.
+            wobec ludzkości - w&nbsp;uporządkowany i&nbsp;zrozumiały sposób.
           </p>
 
           <p className="mt-6 leading-[1.4]">Oto część z&nbsp;nich:</p>
@@ -278,52 +277,52 @@ export default function Page() {
             <ol>
               <li>
                 <span>1</span>
-                <p>Czy Biblia jest wiarygodna i&nbsp;jak ją rozumieć</p>
+                <p>Czy Biblia jest wiarygodna i&nbsp;jak ją rozumieć?</p>
               </li>
 
               <li>
                 <span>2</span>
-                <p>Czy Bóg naprawdę istnieje i&nbsp;jaki ma charakter</p>
+                <p>Czy Bóg naprawdę istnieje i&nbsp;jaki ma charakter?</p>
               </li>
 
               <li>
                 <span>3</span>
-                <p>Dlaczego na świecie istnieje zło i&nbsp;cierpienie</p>
+                <p>Dlaczego na świecie istnieją zło i&nbsp;cierpienie?</p>
               </li>
 
               <li>
                 <span>4</span>
-                <p>Jaki jest cel życia człowieka</p>
+                <p>Jaki jest cel życia człowieka?</p>
               </li>
 
               <li>
                 <span>5</span>
-                <p>Czym jest „dzień sądu” i&nbsp;czy należy się go obawiać</p>
+                <p>Czym jest „dzień sądu” i&nbsp;czy należy się go obawiać?</p>
               </li>
 
               <li>
                 <span>6</span>
-                <p>Co oznacza powrót Chrystusa</p>
+                <p>Co oznacza powrót Chrystusa?</p>
               </li>
 
               <li>
                 <span>7</span>
-                <p>Jaką rolę w&nbsp;Bożym planie odgrywa Jezus Chrystus</p>
+                <p>Jaką rolę w&nbsp;Bożym planie odgrywa Jezus Chrystus?</p>
               </li>
 
               <li>
                 <span>8</span>
-                <p>Na czym będzie polegało „Królestwo Boże”</p>
+                <p>Na czym będzie polegało „Królestwo Boże”?</p>
               </li>
 
               <li>
                 <span>9</span>
-                <p>Czy wszyscy ludzie mają szansę na życie wieczne</p>
+                <p>Czy wszyscy ludzie mają szansę na życie wieczne?</p>
               </li>
 
               <li>
                 <span>10</span>
-                <p>Jak wygląda przyszłość świata według Biblii</p>
+                <p>Jak wygląda przyszłość świata według Biblii?</p>
               </li>
             </ol>
           </div>

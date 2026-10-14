@@ -14,12 +14,14 @@ export default class MailTemplate {
   }
 
   async buildLeadSubject(): Promise<string> {
-    //* TYTUŁ”
+    //* E-mail subject
     switch (this.type) {
       case "boski-plan-wiekow":
         return "Twój egzemplarz książki - „Boski Plan Wieków”";
       case "dlaczego-warto":
         return "Twój egzemplarz e-booka - „Dlaczego warto czytać Biblię?”";
+      case "narodziny-jezusa":
+        return "Twój egzemplarz e-booka - „Kiedy naprawdę narodził się Pan Jezus?”";
     }
   }
 
@@ -30,6 +32,8 @@ export default class MailTemplate {
         return "egzemplarza książki „Boski Plan Wieków”";
       case "dlaczego-warto":
         return "e-booka „Dlaczego warto czytać Biblię?”";
+      case "narodziny-jezusa":
+        return "e-booka „Kiedy naprawdę narodził się Pan Jezus?”";
     }
   }
 
@@ -63,13 +67,21 @@ export default class MailTemplate {
     //! Be careful with attachments names
     //! Order matter here
 
-    const attachmentFileNames =
-      this.type === "boski-plan-wiekow"
-        ? [
-            "Boski Plan Wieków - Wykłady Pisma Świętego Tom 1.pdf",
-            "Boski Plan Wieków - schemat (załącznik 1).pdf",
-          ]
-        : ["Dlaczego warto czytać Biblię.pdf"];
+    let attachmentFileNames;
+    switch (this.type) {
+      case "boski-plan-wiekow":
+        attachmentFileNames = [
+          "Boski Plan Wieków - Wykłady Pisma Świętego Tom 1.pdf",
+          "Boski Plan Wieków - schemat (załącznik 1).pdf",
+        ];
+        break;
+      case "dlaczego-warto":
+        attachmentFileNames = ["Dlaczego warto czytać Biblię.pdf"];
+        break;
+      case "narodziny-jezusa":
+        attachmentFileNames = ["Kiedy naprawdę narodził się Pan Jezus.pdf"];
+        break;
+    }
 
     return attachmentFileNames.map((attachmentFileName) => ({
       filename: attachmentFileName,
@@ -78,12 +90,14 @@ export default class MailTemplate {
   }
 
   static getAttachmentName(type: LeadFormValues["type"]): string {
-    //* Nazwa załącznika”
+    //* Attachment name
     switch (type) {
       case "boski-plan-wiekow":
         return "„Boski Plan Wieków”";
       case "dlaczego-warto":
         return "„Dlaczego warto czytać Biblię?”";
+      case "narodziny-jezusa":
+        return "„Kiedy naprawdę narodził się Pan Jezus?”";
     }
   }
 

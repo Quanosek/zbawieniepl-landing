@@ -1,22 +1,24 @@
 import Link from "next/link";
 import type { Route } from "next";
+import { ArrowRight } from "lucide-react";
 
 type RouteItem = {
   href: Route;
   title: string;
-  description: string;
 };
 
 const routes: RouteItem[] = [
   {
     href: "/boski-plan-wiekow",
     title: "Boski Plan Wieków",
-    description: "Landing strony książki z formularzem zapisu",
   },
   {
     href: "/dlaczego-warto",
     title: "Dlaczego warto czytać Biblię",
-    description: "Landing strony e-booka z formularzem zapisu",
+  },
+  {
+    href: "/narodziny-jezusa",
+    title: "Kiedy naprawdę narodził się Pan Jezus",
   },
 ];
 
@@ -32,18 +34,24 @@ export default function Page() {
             z&nbsp;łatwością będziesz mógł między nimi nawigować.
           </p>
 
-          <ul className="mt-10 grid gap-4 md:grid-cols-2">
+          <ul className="mt-10 flex flex-col gap-4">
             {routes.map((route) => (
               <li key={route.href}>
                 <Link
                   href={route.href}
-                  className="group block h-full border border-[#d8d8d8] bg-white p-5 transition-colors hover:border-[#1e1e1e]"
+                  className="group flex items-center justify-between gap-4 border border-[#d8d8d8] bg-white p-5 transition-colors hover:border-[#1e1e1e]"
                 >
-                  <p className="text-xl leading-tight font-semibold">{route.title}</p>
-                  <p className="mt-2 text-sm leading-normal text-[#5a5a5a]">{route.description}</p>
-                  <p className="mt-5 text-sm font-semibold text-[#1e1e1e] group-hover:underline">
-                    Przejdz do strony
-                  </p>
+                  <div>
+                    <p className="text-xl leading-tight font-semibold">{route.title}</p>
+                    <p className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-[#1e1e1e] group-hover:underline">
+                      Przejdź do strony
+                      <ArrowRight
+                        size={16}
+                        aria-hidden="true"
+                        className="transition-transform duration-200 group-hover:translate-x-1"
+                      />
+                    </p>
+                  </div>
                 </Link>
               </li>
             ))}

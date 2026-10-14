@@ -21,7 +21,7 @@ export default function Page() {
 
   return (
     <div>
-      <section className="relative pt-30 md:h-225 md:pt-0">
+      <section className="relative pt-30 md:h-200 md:pt-0">
         <div className="safe-space relative z-20 flex flex-col items-start justify-between gap-8 text-white md:top-50 md:flex-row md:gap-12">
           <div className="ml-[3%] flex flex-col gap-6 md:ml-0 md:w-5/8">
             <h1 className="text-4xl leading-[1.2] font-bold md:text-5xl">
@@ -33,11 +33,7 @@ export default function Page() {
               Pismo Święte oraz w&nbsp;jaki sposób może Ci pomóc.
             </p>
 
-            <p className="pr-5">
-              Podaj e&#8209;mail, a&nbsp;wyślemy Ci PDF.
-              <br />
-              Poniżej możesz sprawdzić, jakie tematy znajdziesz w&nbsp;środku.
-            </p>
+            <p className="pr-5">Wpisz adres e-mail, a&nbsp;wyślemy Ci e-book zupełnie za darmo.</p>
           </div>
 
           <LeadForm type="dlaczego-warto" isSent={isSent} onSuccess={() => setIsSent(true)} />
@@ -59,45 +55,23 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="flex-col items-start justify-center pt-45.5 md:pt-0">
-        <div className="absolute -top-45 z-30 mx-auto hidden h-100 w-full md:block">
-          <Image
-            src="/images/dlaczego-warto-cover.png"
-            alt="Dlaczego warto czytać Biblię"
-            className="spread-shadow"
-            fill
-            sizes="(min-width: 768px) 100vw, 0px"
-            loading="eager"
-            draggable={false}
-            style={{ objectFit: "contain" }}
-          />
-        </div>
-
-        <div className="spread-shadow-subtle relative block w-full flex-1 md:hidden">
-          <div className="relative my-5 h-75 w-full flex-1 overflow-hidden">
-            <Image
-              src="/images/dlaczego-warto-cover.png"
-              alt="Dlaczego warto czytać Biblię"
-              className="scale-[0.85]"
-              fill
-              sizes="(max-width: 768px) 95vw, 100vw"
-              loading="eager"
-              draggable={false}
-              style={{ objectFit: "contain" }}
-            />
-          </div>
-        </div>
-
-        <div className="center-space flex flex-col justify-center gap-6 text-center md:mt-72!">
+      <section className="flex-col items-start justify-center pt-65 md:pt-0">
+        <div className="center-space flex flex-col justify-center gap-6 text-center md:mt-16!">
           <h2 className="mx-auto max-w-[20ch] text-[44px] leading-[1.2] font-bold md:max-w-none md:text-5xl">
             Co od nas otrzymasz?
           </h2>
 
-          <p className="font-semibold">E-book o&nbsp;tym „Dlaczego warto czytać Biblię”.</p>
+          <p className="font-semibold">
+            E-book „Dlaczego warto czytać Biblię?” to przewodnik dla osób, które szukają
+            w&nbsp;życiu sensu i&nbsp;pokoju.
+          </p>
 
-          <p>Jest to przewodnik dla tych, którzy szukają w&nbsp;życiu sensu i&nbsp;spokoju.</p>
+          <p>
+            Pokazuje, jak lektura Pisma Świętego może pomóc lepiej poznać Boga, zrozumieć Jego plan
+            i&nbsp;odnaleźć wskazówki pomocne na co dzień.
+          </p>
 
-          <p>W środku znajdziesz m.in.:</p>
+          <p>W e-booku znajdziesz m.in.:</p>
         </div>
 
         <div className="safe-space my-12! flex flex-col gap-5 md:grid md:grid-cols-2">
@@ -106,7 +80,13 @@ export default function Page() {
               <Lightbulb size={18} color="white" />
             </div>
 
-            <h3>Co Biblia mówi o&nbsp;Bożym Planie?</h3>
+            <div>
+              <h3>Plan, który nadaje sens</h3>
+              <p>
+                Zobaczysz, jak Biblia pomaga spojrzeć na przeszłość, teraźniejszość
+                i&nbsp;przyszłość z&nbsp;szerszej perspektywy.
+              </p>
+            </div>
           </div>
 
           <div className="tile flex-col md:flex-row">
@@ -114,7 +94,14 @@ export default function Page() {
               <Lightbulb size={18} color="white" />
             </div>
 
-            <h3>W&nbsp;jaki sposób pomaga nam w&nbsp;codziennym życiu?</h3>
+            <div>
+              <h3>Pomoc w&nbsp;codziennym życiu</h3>
+              <p>
+                Poznasz wskazówki, które mogą wspierać Cię w&nbsp;podejmowaniu decyzji
+                i&nbsp;radzeniu sobie z&nbsp;codziennymi troskami, a&nbsp;także rozwijać
+                cierpliwość, pokorę i&nbsp;miłość.
+              </p>
+            </div>
           </div>
 
           <div className="tile flex-col md:flex-row">
@@ -122,7 +109,13 @@ export default function Page() {
               <Lightbulb size={18} color="white" />
             </div>
 
-            <h3>Jaki na prawdę jest Pan Bóg?</h3>
+            <div>
+              <h3>Poznanie Boga</h3>
+              <p>
+                Dowiesz się, jaki obraz Boga przedstawia Biblia i&nbsp;co mówi o&nbsp;Jego
+                charakterze oraz podejściu do człowieka.
+              </p>
+            </div>
           </div>
 
           <div className="tile flex-col md:flex-row">
@@ -130,12 +123,18 @@ export default function Page() {
               <Lightbulb size={18} color="white" />
             </div>
 
-            <h3>Skąd wziąć siłę by pokonywać życiowe trudności?</h3>
+            <div>
+              <h3>Siła w&nbsp;trudnych chwilach</h3>
+              <p>
+                Odkryjesz, jaką nadzieję i&nbsp;pocieszenie można znaleźć w&nbsp;Biblii, gdy
+                przychodzą życiowe wyzwania.
+              </p>
+            </div>
           </div>
         </div>
 
         <button
-          className="mx-auto mb-26 w-75 max-w-[90%] bg-[#202020] py-3 font-semibold text-white"
+          className="mx-auto mb-26 w-75 max-w-[90%] bg-[#e1d122] py-3 font-semibold text-black"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
           Uzupełnij formularz
@@ -149,8 +148,9 @@ export default function Page() {
           </h2>
 
           <p className="mt-8 leading-[1.4] font-semibold">
-            Pismo Święte to miejsce, w&nbsp;którym możemy znaleźć odpowiedzi na najważniejsze
-            życiowe pytania.
+            Pismo Święte pomaga szukać odpowiedzi na ważne życiowe pytania, lepiej poznać Boga
+            i&nbsp;odnaleźć sens oraz pokój. Ten e-book przybliża jego przesłanie i&nbsp;pokazuje,
+            jak może ono wspierać nas w&nbsp;codziennym życiu.
           </p>
 
           <ul className="mx-auto my-12 flex w-fit flex-col gap-4 text-left">
@@ -159,7 +159,7 @@ export default function Page() {
                 <BadgeCheck size={24} color="black" />
               </div>
 
-              <p>Przekonasz się, że Pan Bóg ma plan i&nbsp;Ty jesteś jego częścią</p>
+              <p>Lepiej zrozumiesz, jaki plan dla ludzi przedstawia Biblia</p>
             </li>
 
             <li className="checklist-item">
@@ -167,7 +167,9 @@ export default function Page() {
                 <BadgeCheck size={24} color="black" />
               </div>
 
-              <p>Znajdziesz ukojenie dla codziennych trosk</p>
+              <p>
+                Poznasz biblijną perspektywę na trudności i&nbsp;nadzieję w&nbsp;trudnych chwilach
+              </p>
             </li>
 
             <li className="checklist-item">
@@ -175,12 +177,23 @@ export default function Page() {
                 <BadgeCheck size={24} color="black" />
               </div>
 
-              <p>Pomoże Ci to pracować nad swoim charakterem</p>
+              <p>Lepiej poznasz charakter Boga i&nbsp;Jego podejście do człowieka</p>
+            </li>
+
+            <li className="checklist-item">
+              <div>
+                <BadgeCheck size={24} color="black" />
+              </div>
+
+              <p>
+                Dowiesz się, jak biblijne nauki pomagają rozwijać charakter i&nbsp;odróżniać prawdę
+                od&nbsp;fałszu
+              </p>
             </li>
           </ul>
 
           <button
-            className="mx-auto mb-26 w-75 max-w-[90%] bg-white py-3 font-semibold text-black"
+            className="mx-auto mb-26 w-75 max-w-[90%] bg-[#e1d122] py-3 font-semibold text-black"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             Uzupełnij formularz

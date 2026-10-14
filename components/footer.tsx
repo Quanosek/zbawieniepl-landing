@@ -24,7 +24,7 @@ export default function Footer() {
           </p>
 
           <p>
-            <i>Bóg chce, aby wszyscy ludzie byli zbawieni...</i> – 1 Tym. 2,4-6
+            <i>Bóg chce, aby wszyscy ludzie byli zbawieni...</i> - 1 Tym. 2,4-6
           </p>
         </div>
       </div>

@@ -42,7 +42,7 @@ export function SuccessModal({ isOpen, onClose }: SuccessModalProps) {
 
           <p className="center-space leading-[1.4]">
             Jeśli ten materiał okaże się dla Ciebie wartościowy i&nbsp;będziesz chciał(a) sięgnąć po
-            kolejne tomy, skontaktuj się z&nbsp;nami – chętnie przekażemy więcej informacji.
+            kolejne tomy, skontaktuj się z&nbsp;nami - chętnie przekażemy więcej informacji.
           </p>
 
           <button onClick={handleButtonClick} className="mx-auto mt-4 w-75 max-w-[90%] bg-white">
