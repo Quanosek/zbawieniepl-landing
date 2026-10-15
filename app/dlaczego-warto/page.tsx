@@ -1,24 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { BadgeCheck, Lightbulb } from "lucide-react";
 
 import LeadForm from "@/components/lead-form";
 
 export default function Page() {
-  const [isSent, setIsSent] = useState(false);
-
-  useEffect(() => {
-    if (!isSent) return;
-
-    const timeoutId = window.setTimeout(() => {
-      setIsSent(false);
-    }, 3_000);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [isSent]);
-
   return (
     <div>
       <section className="relative pt-30 md:h-200 md:pt-0">
@@ -36,7 +23,7 @@ export default function Page() {
             <p className="pr-5">Wpisz adres e-mail, a&nbsp;wyślemy Ci e-book zupełnie za darmo.</p>
           </div>
 
-          <LeadForm type="dlaczego-warto" isSent={isSent} onSuccess={() => setIsSent(true)} />
+          <LeadForm type="dlaczego-warto" />
         </div>
 
         <div className="absolute inset-0">

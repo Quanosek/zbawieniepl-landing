@@ -1,15 +1,13 @@
 type EcomailSubscriber = {
   email: string;
   name: string;
+  source: string;
 };
 
-export async function subscribeToEcomail(subscriber: EcomailSubscriber) {
+export async function subscribeToEcomail(listId: number, subscriber: EcomailSubscriber) {
   const apiKey = process.env.ECOMAIL_API_KEY;
-  const listId = process.env.ECOMAIL_BOSKI_PLAN_LIST_ID;
 
-  if (!apiKey || !listId) {
-    throw new Error("Missing Ecomail API configuration");
-  }
+  if (!apiKey) throw new Error("Missing ECOMAIL_API_KEY");
 
   const response = await fetch(`https://api2.ecomailapp.cz/lists/${listId}/subscribe`, {
     method: "POST",
@@ -27,7 +25,6 @@ export async function subscribeToEcomail(subscriber: EcomailSubscriber) {
   });
 
   if (!response.ok) {
-    console.error("Ecomail subscription failed with status:", response.status);
-    throw new Error("Ecomail subscription failed");
+    throw new Error(`Ecomail subscription failed (${response.status}): ${await response.text()}`);
   }
 }

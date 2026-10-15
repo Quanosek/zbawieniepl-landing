@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { Check } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { event as gaEvent } from "nextjs-google-analytics";
 import { track as vercelTrack } from "@vercel/analytics";
@@ -10,50 +11,57 @@ import type { LeadFormValues } from "@/types/lead-form";
 
 type LeadFormProps = {
   type: LeadFormValues["type"];
-  isSent: boolean;
-  onSuccess: () => void;
+  onSuccess?: () => void;
 };
 
-export default function LeadForm({ type, isSent, onSuccess }: LeadFormProps) {
+type LeadFormFields = LeadFormValues & { website: string };
+
+const sanitizeNameInput = (value: string) =>
+  value.replace(/[^\p{L}\s]/gu, "").replace(/\s{2,}/g, " ");
+
+export default function LeadForm({ type, onSuccess }: LeadFormProps) {
+  const [isSent, setIsSent] = useState(false);
   const {
     register,
     handleSubmit,
     reset,
+    setError,
     formState: { errors, isSubmitting },
-  } = useForm<LeadFormValues>({
+  } = useForm<LeadFormFields>({
     defaultValues: {
       type,
       firstName: "",
       email: "",
       newsletter: false,
+      website: "",
     },
   });
 
+  useEffect(() => {
+    if (!isSent) return;
+    const timeoutId = window.setTimeout(() => setIsSent(false), 3_000);
+    return () => window.clearTimeout(timeoutId);
+  }, [isSent]);
+
   const isLocked = isSubmitting || isSent;
 
-  const sanitizeNameInput = (value: string) =>
-    value.replace(/[^\p{L}\s]/gu, "").replace(/\s{2,}/g, " ");
-
   const trackSubmitButtonClick = () => {
-    const payload = {
-      category: "lead_form",
-      label: type,
-      form_type: type,
-    };
-
-    gaEvent("lead_form_submit_click", payload);
+    gaEvent("lead_form_submit_click", { category: "lead_form", label: type, form_type: type });
     vercelTrack("lead_form_submit_click", { formType: type });
   };
 
-  const onSubmit = async (data: LeadFormValues) => {
-    const result = await axios.post("/api/lead", data, {
-      headers: { "Content-Type": "application/json" },
-    });
-
-    if (result.status === 200) {
-      onSuccess();
+  const onSubmit = async (data: LeadFormFields) => {
+    try {
+      await axios.post("/api/lead", data);
+    } catch {
+      setError("root", {
+        message: "Nie udało się wysłać formularza. Sprawdź dane i spróbuj ponownie.",
+      });
+      return;
     }
 
+    setIsSent(true);
+    onSuccess?.();
     reset();
   };
 
@@ -62,12 +70,20 @@ export default function LeadForm({ type, isSent, onSuccess }: LeadFormProps) {
       className="mx-auto -mt-30 w-full max-w-xl translate-y-1/2 bg-[#E8E8E8] p-8 text-black md:m-0 md:mt-0 md:w-3/8 md:translate-y-0"
       onSubmit={handleSubmit(onSubmit)}
     >
+      <div aria-hidden="true" className="absolute left-[-9999px] h-px w-px overflow-hidden">
+        <label>
+          Strona WWW
+          <input {...register("website")} type="text" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
+
       <label>
         <p>Imię</p>
 
         <input
           {...register("firstName", {
             required: "Podaj swoje imię",
+            validate: (value) => value.trim().length > 0 || "Podaj swoje imię",
             maxLength: {
               value: 100,
               message: "Maksymalnie 100 znaków",
@@ -95,7 +111,7 @@ export default function LeadForm({ type, isSent, onSuccess }: LeadFormProps) {
           {...register("email", {
             required: "Podaj swój adres e-mail",
             pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              value: /^[\w.!#$%&'*+/=?^`{|}~-]+@[a-z\d-]+(?:\.[a-z\d-]+)+$/i,
               message: "Podaj poprawny adres e-mail",
             },
             maxLength: {
@@ -141,6 +157,8 @@ export default function LeadForm({ type, isSent, onSuccess }: LeadFormProps) {
           newslettera.
         </p>
       </div>
+
+      {errors.root && <p className="text-xs text-red-700">{errors.root.message}</p>}
 
       <button
         type="submit"

@@ -1,55 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import Script from "next/script";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BadgeCheck, Lightbulb } from "lucide-react";
 
+import EcomailTracker from "@/components/ecomail-tracker";
 import LeadForm from "@/components/lead-form";
 import { SuccessModal } from "@/components/success-modal";
 
-const ecomailTrackerUrl = process.env.NEXT_PUBLIC_ECOMAIL_TRACKER_URL as string;
-const ecomailCollectorHost = process.env.NEXT_PUBLIC_ECOMAIL_COLLECTOR_HOST as string;
-const ecomailAppId = process.env.NEXT_PUBLIC_ECOMAIL_APP_ID as string;
-
 export default function Page() {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const [isSent, setIsSent] = useState(false);
-
-  useEffect(() => {
-    if (!isSent) return;
-
-    const timeoutId = window.setTimeout(() => {
-      setIsSent(false);
-    }, 3_000);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [isSent]);
-
-  const handleSuccess = () => {
-    setIsSent(true);
-    setIsSuccessModalOpen(true);
-  };
 
   return (
     <div className={isSuccessModalOpen ? "max-h-screen overflow-hidden" : ""}>
-      <Script
-        id="ecomail-boski-plan-wiekow"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: /* js */ `
-            ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
-            p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
-            };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-            n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script",${JSON.stringify(ecomailTrackerUrl)},"ecotrack"));
-            window.ecotrack('newTracker', 'cf', ${JSON.stringify(ecomailCollectorHost)}, { /* Initialise a tracker */
-            appId: ${JSON.stringify(ecomailAppId)}, consentModeV2: true
-            });
-            window.ecotrack('setUserIdFromLocation', 'ecmid');
-            window.ecotrack('trackPageView');
-          `,
-        }}
-      />
+      <EcomailTracker />
 
       <SuccessModal isOpen={isSuccessModalOpen} onClose={() => setIsSuccessModalOpen(false)} />
 
@@ -71,7 +35,7 @@ export default function Page() {
             </p>
           </div>
 
-          <LeadForm type="boski-plan-wiekow" isSent={isSent} onSuccess={handleSuccess} />
+          <LeadForm type="boski-plan-wiekow" onSuccess={() => setIsSuccessModalOpen(true)} />
         </div>
 
         <div className="absolute inset-0">

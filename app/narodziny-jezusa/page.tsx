@@ -1,26 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { BadgeCheck, Lightbulb } from "lucide-react";
 
+import EcomailTracker from "@/components/ecomail-tracker";
 import LeadForm from "@/components/lead-form";
 
 export default function Page() {
-  const [isSent, setIsSent] = useState(false);
-
-  useEffect(() => {
-    if (!isSent) return;
-
-    const timeoutId = window.setTimeout(() => {
-      setIsSent(false);
-    }, 3_000);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [isSent]);
-
   return (
     <div>
+      <EcomailTracker />
+
       <section className="relative pt-30 md:h-200 md:pt-0">
         <div className="safe-space relative z-20 flex flex-col items-start justify-between gap-8 text-white md:top-50 md:flex-row md:gap-12">
           <div className="ml-[3%] flex flex-col gap-6 md:ml-0 md:w-5/8">
@@ -36,7 +26,7 @@ export default function Page() {
             <p className="pr-5">Wpisz adres e-mail, a&nbsp;wyślemy Ci e-book zupełnie za darmo.</p>
           </div>
 
-          <LeadForm type="narodziny-jezusa" isSent={isSent} onSuccess={() => setIsSent(true)} />
+          <LeadForm type="narodziny-jezusa" />
         </div>
 
         <div className="absolute inset-0">
