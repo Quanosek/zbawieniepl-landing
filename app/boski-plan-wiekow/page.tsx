@@ -6,7 +6,7 @@ import { BadgeCheck, Lightbulb } from "lucide-react";
 
 import EcomailTracker from "@/components/ecomail-tracker";
 import LeadForm from "@/components/lead-form";
-import { SuccessModal } from "@/components/success-modal";
+import SuccessModal from "@/components/success-modal";
 
 export default function Page() {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);

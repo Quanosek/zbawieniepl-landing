@@ -3,11 +3,11 @@ import nodemailer from "nodemailer";
 
 import type { LeadFormValues } from "@/types/lead-form";
 import { subscribeToEcomail } from "@/utils/ecomail";
+import { emailPattern, leadFieldMaxLength } from "@/utils/lead-validation";
 import { leads } from "@/utils/leads";
 import { buildDeliveryLogMail, buildLeadMail } from "@/utils/mail-template";
 
 const namePattern = /^[\p{L}\s]{1,100}$/u;
-const emailPattern = /^[\w.!#$%&'*+/=?^`{|}~-]+@[a-z\d-]+(?:\.[a-z\d-]+)+$/i;
 
 const transporter = nodemailer.createTransport(
   {
@@ -34,7 +34,7 @@ function parseLead(body: Record<string, unknown>): LeadFormValues | null {
     typeof firstName !== "string" ||
     !namePattern.test(firstName.trim()) ||
     typeof email !== "string" ||
-    email.length > 100 ||
+    email.length > leadFieldMaxLength ||
     !emailPattern.test(email.trim()) ||
     newsletter !== true
   ) {

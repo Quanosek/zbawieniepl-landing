@@ -128,9 +128,11 @@ export default function Page() {
             historycznych i&nbsp;Pisma Świętego. Prawda jest jednak zupełnie inna: Biblia jest
             wspaniałym źródłem informacji historycznych, geograficznych i&nbsp;kulturowych.
           </p>
+
           <p className="mt-8 leading-[1.4] font-semibold">
             Nauka odkrywa coraz więcej dowodów potwierdzających zapisy Pisma Świętego.
           </p>
+
           <p className="mt-8 leading-[1.4] font-semibold">
             Odkryj, jak zgodne są te dwa źródła i&nbsp;jak pomagają odpowiedzieć na pytanie: kiedy
             naprawdę narodził się Pan Jezus.

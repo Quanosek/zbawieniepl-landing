@@ -6,7 +6,7 @@ type SuccessModalProps = {
   onClose: () => void;
 };
 
-export function SuccessModal({ isOpen, onClose }: SuccessModalProps) {
+export default function SuccessModal({ isOpen, onClose }: SuccessModalProps) {
   const handleButtonClick = () => {
     window.location.href = "mailto:redakcja@zbawienie.pl";
     onClose();
@@ -14,7 +14,7 @@ export function SuccessModal({ isOpen, onClose }: SuccessModalProps) {
 
   return (
     <div
-      aria-hidden={!isOpen}
+      inert={!isOpen}
       className={`fixed inset-0 z-200 flex items-end justify-center overflow-hidden bg-black/60 transition-opacity duration-500 ${
         isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
       }`}
@@ -23,16 +23,21 @@ export function SuccessModal({ isOpen, onClose }: SuccessModalProps) {
         className="flex h-full w-full flex-col justify-between overflow-x-hidden overflow-y-auto bg-[#1e1e1e] pt-20 text-white transition-transform duration-500 ease-out"
         style={{ transform: isOpen ? "translateY(0)" : "translateY(100%)", colorScheme: "dark" }}
       >
-        <button className="absolute top-0 right-0 z-50 m-6 p-1" onClick={onClose}>
-          <X size={28} className="absolute top-5 right-5 cursor-pointer" />
+        <button
+          type="button"
+          aria-label="Zamknij"
+          className="absolute top-0 right-0 z-50 m-6 p-1"
+          onClick={onClose}
+        >
+          <X size={28} className="absolute top-5 right-5 cursor-pointer" aria-hidden="true" />
         </button>
 
         <div className="safe-space flex flex-col gap-6 pb-10 text-center">
-          <h1 className="mx-auto max-w-[20ch] text-[44px] leading-[1.2] font-bold md:max-w-none md:text-5xl">
+          <h2 className="mx-auto max-w-[20ch] text-[44px] leading-[1.2] font-bold md:max-w-none md:text-5xl">
             Poznaj kolejne tomy
             <br />
             „Wykładów Pisma Świętego”
-          </h1>
+          </h2>
 
           <p className="center-space leading-[1.4] font-semibold">
             „Boski Plan Wieków” to pierwszy tom serii Wykładów Pisma Świętego autorstwa Charlesa
@@ -45,8 +50,14 @@ export function SuccessModal({ isOpen, onClose }: SuccessModalProps) {
             kolejne tomy, skontaktuj się z&nbsp;nami - chętnie przekażemy więcej informacji.
           </p>
 
-          <button onClick={handleButtonClick} className="mx-auto mt-4 w-75 max-w-[90%] bg-white">
-            <p className="py-5 text-center leading-1.5 font-semibold text-black">Skontaktuj się</p>
+          <button
+            type="button"
+            onClick={handleButtonClick}
+            className="mx-auto mt-4 w-75 max-w-[90%] bg-white"
+          >
+            <span className="block py-5 text-center leading-1.5 font-semibold text-black">
+              Skontaktuj się
+            </span>
           </button>
         </div>
 

@@ -1,13 +1,14 @@
 "use client";
 
-import axios from "axios";
-import { Check } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 import { useForm } from "react-hook-form";
-import { event as gaEvent } from "nextjs-google-analytics";
+import axios from "axios";
+import { Check } from "lucide-react";
 import { track as vercelTrack } from "@vercel/analytics";
+import { event as gaEvent } from "nextjs-google-analytics";
 
 import type { LeadFormValues } from "@/types/lead-form";
+import { emailPattern, leadFieldMaxLength } from "@/utils/lead-validation";
 
 type LeadFormProps = {
   type: LeadFormValues["type"];
@@ -15,6 +16,12 @@ type LeadFormProps = {
 };
 
 type LeadFormFields = LeadFormValues & { website: string };
+
+const requiredMessage = "To pole jest obowiązkowe";
+const maxLengthRule = {
+  value: leadFieldMaxLength,
+  message: `Maksymalnie ${leadFieldMaxLength} znaków`,
+};
 
 const sanitizeNameInput = (value: string) =>
   value.replace(/[^\p{L}\s]/gu, "").replace(/\s{2,}/g, " ");
@@ -81,22 +88,19 @@ export default function LeadForm({ type, onSuccess }: LeadFormProps) {
         </div>
 
         <label>
-          <p>Imię</p>
+          <span>Imię</span>
 
           <input
             {...register("firstName", {
-              required: "To pole jest obowiązkowe",
-              validate: (value) => value.trim().length > 0 || "To pole jest obowiązkowe",
-              maxLength: {
-                value: 100,
-                message: "Maksymalnie 100 znaków",
-              },
+              required: requiredMessage,
+              validate: (value) => value.trim().length > 0 || requiredMessage,
+              maxLength: maxLengthRule,
               onChange: (event) => {
                 event.target.value = sanitizeNameInput(event.target.value);
               },
             })}
             autoComplete="given-name"
-            maxLength={100}
+            maxLength={leadFieldMaxLength}
             inputMode="text"
             aria-required="true"
             aria-invalid={!!errors.firstName}
@@ -105,34 +109,31 @@ export default function LeadForm({ type, onSuccess }: LeadFormProps) {
           />
 
           {errors.firstName && (
-            <p
+            <span
               id={`${formId}-firstName-error`}
               role="alert"
               className="mt-1 text-xs font-semibold text-red-700"
             >
               {errors.firstName.message}
-            </p>
+            </span>
           )}
         </label>
 
         <label>
-          <p>Adres e&#8209;mail</p>
+          <span>Adres e&#8209;mail</span>
 
           <input
             {...register("email", {
-              required: "To pole jest obowiązkowe",
+              required: requiredMessage,
               pattern: {
-                value: /^[\w.!#$%&'*+/=?^`{|}~-]+@[a-z\d-]+(?:\.[a-z\d-]+)+$/i,
+                value: emailPattern,
                 message: "Podaj poprawny adres e-mail",
               },
-              maxLength: {
-                value: 100,
-                message: "Maksymalnie 100 znaków",
-              },
+              maxLength: maxLengthRule,
             })}
             type="email"
             autoComplete="email"
-            maxLength={100}
+            maxLength={leadFieldMaxLength}
             aria-required="true"
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? `${formId}-email-error` : undefined}
@@ -140,13 +141,13 @@ export default function LeadForm({ type, onSuccess }: LeadFormProps) {
           />
 
           {errors.email && (
-            <p
+            <span
               id={`${formId}-email-error`}
               role="alert"
               className="mt-1 text-xs font-semibold text-red-700"
             >
               {errors.email.message}
-            </p>
+            </span>
           )}
         </label>
 
@@ -159,7 +160,7 @@ export default function LeadForm({ type, onSuccess }: LeadFormProps) {
               id={`${formId}-newsletter`}
               className="peer sr-only"
               type="checkbox"
-              {...register("newsletter", { required: "To pole jest obowiązkowe" })}
+              {...register("newsletter", { required: requiredMessage })}
               aria-required="true"
               aria-invalid={!!errors.newsletter}
               aria-labelledby={`${formId}-newsletter-label`}
@@ -194,7 +195,11 @@ export default function LeadForm({ type, onSuccess }: LeadFormProps) {
           </div>
         </div>
 
-        {errors.root && <p className="text-xs font-semibold text-red-700">{errors.root.message}</p>}
+        {errors.root && (
+          <p role="alert" className="text-xs font-semibold text-red-700">
+            {errors.root.message}
+          </p>
+        )}
 
         <button
           type="submit"
