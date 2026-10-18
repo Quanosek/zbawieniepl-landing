@@ -46,7 +46,21 @@ form label {
 
 form input {
   background-color: #ffffff;
-  padding: 12px;
+  padding: 10px;
+  border: 2px solid #ffffff;
+  outline: none;
+}
+
+form input:focus {
+  border-color: #000000;
+}
+
+form input[aria-invalid="true"] {
+  border-color: var(--color-red-700);
+}
+
+form input:disabled {
+  border-color: #dadada;
 }
 
 button {

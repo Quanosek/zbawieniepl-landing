@@ -4,7 +4,7 @@ Landing pages for [Zbawienie.pl](https://zbawienie.pl) that allow visitors to or
 
 ## Features
 
-- Lead capture form with validation (name, e-mail, newsletter consent)
+- Lead capture form requiring a name, valid e-mail and newsletter consent; submitting incomplete fields highlights them in red and displays inline error messages
 - Requested file delivered by e-mail
 - Internal order log e-mail sent to an administrative address
 - Newsletter opt-ins from `/boski-plan-wiekow` and `/narodziny-jezusa` are added to Ecomail lists
@@ -21,7 +21,7 @@ Landing pages for [Zbawienie.pl](https://zbawienie.pl) that allow visitors to or
 
 ## Ecomail
 
-Set `ECOMAIL_API_KEY` in the deployment environment. Ecomail list IDs are defined per landing page in `utils/leads.ts`. The form can be submitted without newsletter consent. When consent is checked, the contact is added to the landing page's Ecomail list and configured autoresponders are triggered. The site's confirmation e-mail with the requested file is sent in both cases; without consent, the contact is not added to Ecomail.
+Set `ECOMAIL_API_KEY` in the deployment environment. Ecomail list IDs are defined per landing page in `utils/leads.ts`. Newsletter consent is required for every form submission and is validated both in the form and by the API. For landing pages with an Ecomail list, the contact is added to that list and configured autoresponders are triggered. The site's confirmation e-mail with the requested file is sent for every valid submission.
 
 ## Commands
 
