@@ -36,7 +36,7 @@ function parseLead(body: Record<string, unknown>): LeadFormValues | null {
     typeof email !== "string" ||
     email.length > 100 ||
     !emailPattern.test(email.trim()) ||
-    typeof newsletter !== "boolean"
+    newsletter !== true
   ) {
     return null;
   }

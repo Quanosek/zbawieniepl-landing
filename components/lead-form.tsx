@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { Check } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { useForm } from "react-hook-form";
 import { event as gaEvent } from "nextjs-google-analytics";
 import { track as vercelTrack } from "@vercel/analytics";
@@ -20,6 +20,7 @@ const sanitizeNameInput = (value: string) =>
   value.replace(/[^\p{L}\s]/gu, "").replace(/\s{2,}/g, " ");
 
 export default function LeadForm({ type, onSuccess }: LeadFormProps) {
+  const formId = useId();
   const [isSent, setIsSent] = useState(false);
   const {
     register,
@@ -69,107 +70,143 @@ export default function LeadForm({ type, onSuccess }: LeadFormProps) {
     <form
       className="mx-auto -mt-30 w-full max-w-xl translate-y-1/2 bg-[#E8E8E8] p-8 text-black md:m-0 md:mt-0 md:w-3/8 md:translate-y-0"
       onSubmit={handleSubmit(onSubmit)}
+      noValidate
     >
-      <div aria-hidden="true" className="absolute left-[-9999px] h-px w-px overflow-hidden">
+      <fieldset disabled={isLocked} className="contents">
+        <div aria-hidden="true" className="absolute left-[-9999px] h-px w-px overflow-hidden">
+          <label>
+            Strona WWW
+            <input {...register("website")} type="text" tabIndex={-1} autoComplete="off" />
+          </label>
+        </div>
+
         <label>
-          Strona WWW
-          <input {...register("website")} type="text" tabIndex={-1} autoComplete="off" />
-        </label>
-      </div>
+          <p>Imię</p>
 
-      <label>
-        <p>Imię</p>
-
-        <input
-          {...register("firstName", {
-            required: "Podaj swoje imię",
-            validate: (value) => value.trim().length > 0 || "Podaj swoje imię",
-            maxLength: {
-              value: 100,
-              message: "Maksymalnie 100 znaków",
-            },
-            onChange: (event) => {
-              event.target.value = sanitizeNameInput(event.target.value);
-            },
-          })}
-          autoComplete="given-name"
-          maxLength={100}
-          inputMode="text"
-          disabled={isLocked}
-          className="transition-colors disabled:cursor-not-allowed disabled:bg-[#dadada]! disabled:text-[#6a6a6a]"
-        />
-
-        {errors.firstName && (
-          <p className="mt-1 text-xs text-red-700">{errors.firstName.message}</p>
-        )}
-      </label>
-
-      <label>
-        <p>Adres e&#8209;mail</p>
-
-        <input
-          {...register("email", {
-            required: "Podaj swój adres e-mail",
-            pattern: {
-              value: /^[\w.!#$%&'*+/=?^`{|}~-]+@[a-z\d-]+(?:\.[a-z\d-]+)+$/i,
-              message: "Podaj poprawny adres e-mail",
-            },
-            maxLength: {
-              value: 100,
-              message: "Maksymalnie 100 znaków",
-            },
-          })}
-          type="email"
-          autoComplete="email"
-          maxLength={100}
-          disabled={isLocked}
-          className="transition-colors disabled:cursor-not-allowed disabled:bg-[#dadada]! disabled:text-[#6a6a6a]"
-        />
-
-        {errors.email && <p className="mt-1 text-xs text-red-700">{errors.email.message}</p>}
-      </label>
-
-      <div className="flex items-start gap-3">
-        <label
-          htmlFor="newsletter"
-          className={`mt-0.5 inline-flex items-center ${isLocked ? "cursor-not-allowed" : "cursor-pointer"}`}
-        >
           <input
-            id="newsletter"
-            className="peer sr-only"
-            type="checkbox"
-            {...register("newsletter")}
-            disabled={isLocked}
+            {...register("firstName", {
+              required: "To pole jest obowiązkowe",
+              validate: (value) => value.trim().length > 0 || "To pole jest obowiązkowe",
+              maxLength: {
+                value: 100,
+                message: "Maksymalnie 100 znaków",
+              },
+              onChange: (event) => {
+                event.target.value = sanitizeNameInput(event.target.value);
+              },
+            })}
+            autoComplete="given-name"
+            maxLength={100}
+            inputMode="text"
+            aria-required="true"
+            aria-invalid={!!errors.firstName}
+            aria-describedby={errors.firstName ? `${formId}-firstName-error` : undefined}
+            className="transition-colors disabled:cursor-not-allowed disabled:bg-[#dadada]! disabled:text-[#6a6a6a]"
           />
 
-          <span className="flex size-5 items-center justify-center bg-white transition-colors peer-checked:bg-black peer-disabled:bg-[#dadada] [&>svg]:opacity-0 peer-checked:[&>svg]:opacity-100">
-            <Check
-              size={14}
-              strokeWidth={3}
-              className="text-white transition-opacity"
-              aria-hidden="true"
-            />
-          </span>
+          {errors.firstName && (
+            <p
+              id={`${formId}-firstName-error`}
+              role="alert"
+              className="mt-1 text-xs font-semibold text-red-700"
+            >
+              {errors.firstName.message}
+            </p>
+          )}
         </label>
 
-        <p className="text-xs">
-          Wyrażam zgodę na przetwarzanie mojego adresu e&#8209;mail, w&nbsp;celu otrzymywania
-          newslettera.
-        </p>
-      </div>
+        <label>
+          <p>Adres e&#8209;mail</p>
 
-      {errors.root && <p className="text-xs text-red-700">{errors.root.message}</p>}
+          <input
+            {...register("email", {
+              required: "To pole jest obowiązkowe",
+              pattern: {
+                value: /^[\w.!#$%&'*+/=?^`{|}~-]+@[a-z\d-]+(?:\.[a-z\d-]+)+$/i,
+                message: "Podaj poprawny adres e-mail",
+              },
+              maxLength: {
+                value: 100,
+                message: "Maksymalnie 100 znaków",
+              },
+            })}
+            type="email"
+            autoComplete="email"
+            maxLength={100}
+            aria-required="true"
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? `${formId}-email-error` : undefined}
+            className="transition-colors disabled:cursor-not-allowed disabled:bg-[#dadada]! disabled:text-[#6a6a6a]"
+          />
 
-      <button
-        type="submit"
-        disabled={isLocked}
-        onClick={trackSubmitButtonClick}
-        className={`w-full py-3 font-semibold text-white transition-colors duration-300 disabled:transform-none! disabled:cursor-not-allowed! ${
-          isSent ? "bg-emerald-600" : "bg-[#202020] disabled:bg-[#4b4b4b] disabled:opacity-100"
-        }`}
-      >
-        {isSent ? "Wysłano" : isSubmitting ? "Wysyłanie..." : "Zamawiam bezpłatny egzemplarz"}
-      </button>
+          {errors.email && (
+            <p
+              id={`${formId}-email-error`}
+              role="alert"
+              className="mt-1 text-xs font-semibold text-red-700"
+            >
+              {errors.email.message}
+            </p>
+          )}
+        </label>
+
+        <div className="flex items-start gap-3">
+          <label
+            htmlFor={`${formId}-newsletter`}
+            className={`mt-0.5 inline-flex items-center ${isLocked ? "cursor-not-allowed" : "cursor-pointer"}`}
+          >
+            <input
+              id={`${formId}-newsletter`}
+              className="peer sr-only"
+              type="checkbox"
+              {...register("newsletter", { required: "To pole jest obowiązkowe" })}
+              aria-required="true"
+              aria-invalid={!!errors.newsletter}
+              aria-labelledby={`${formId}-newsletter-label`}
+              aria-describedby={errors.newsletter ? `${formId}-newsletter-error` : undefined}
+            />
+
+            <span className="flex size-5 items-center justify-center border-2 border-white bg-white transition-colors peer-checked:border-black peer-checked:bg-black peer-focus-visible:border-black peer-disabled:border-[#dadada] peer-disabled:bg-[#dadada] peer-aria-invalid:border-red-700 [&>svg]:opacity-0 peer-checked:[&>svg]:opacity-100">
+              <Check
+                size={12}
+                strokeWidth={3}
+                className="text-white transition-opacity"
+                aria-hidden="true"
+              />
+            </span>
+          </label>
+
+          <div>
+            <p id={`${formId}-newsletter-label`} className="text-xs">
+              Wyrażam zgodę na przetwarzanie mojego adresu e&#8209;mail, w&nbsp;celu otrzymywania
+              newslettera.
+            </p>
+
+            {errors.newsletter && (
+              <p
+                id={`${formId}-newsletter-error`}
+                role="alert"
+                className="mt-1 text-xs font-semibold text-red-700"
+              >
+                {errors.newsletter.message}
+              </p>
+            )}
+          </div>
+        </div>
+
+        {errors.root && <p className="text-xs font-semibold text-red-700">{errors.root.message}</p>}
+
+        <button
+          type="submit"
+          disabled={isLocked}
+          onClick={trackSubmitButtonClick}
+          className={`w-full py-3 font-semibold text-white transition-colors duration-300 disabled:transform-none! disabled:cursor-not-allowed! ${
+            isSent ? "bg-emerald-600" : "bg-[#202020] disabled:bg-[#4b4b4b] disabled:opacity-100"
+          }`}
+        >
+          {isSent ? "Wysłano" : isSubmitting ? "Wysyłanie..." : "Zamawiam bezpłatny egzemplarz"}
+        </button>
+      </fieldset>
     </form>
   );
 }
