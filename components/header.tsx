@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, Search } from "lucide-react";
+import { Menu } from "lucide-react";
 
-export default function Header() {
+export default function Header({ children }: { children?: React.ReactNode }) {
   return (
     <header className="fixed top-0 z-100 w-full bg-[rgba(0,0,0,0.7)]">
-      <div className="safe-space flex items-center justify-between">
+      <div className="safe-space flex items-center justify-between md:min-h-22">
         <Link href="https://zbawienie.pl" className="relative h-6 w-46 md:h-8">
           <Image
-            style={{ objectFit: "contain" }}
+            className="object-contain"
             src="/zbawieniepl.svg"
             alt="Zbawienie.pl"
             draggable={false}
@@ -17,33 +17,13 @@ export default function Header() {
           />
         </Link>
 
-        <Link href="https://zbawienie.pl" className="my-6 hidden md:block">
-          <ul className="flex items-center gap-8 py-2 font-bold text-white uppercase">
-            <li>
-              <p>Artykuły</p>
-            </li>
-
-            <li>
-              <p>Multimedia</p>
-            </li>
-
-            <li>
-              <p>Księga gości</p>
-            </li>
-
-            <li>
-              <p>Kontakt</p>
-            </li>
-
-            <li>
-              <Search size={16} strokeWidth={3} color="#ffffff" />
-            </li>
-          </ul>
-        </Link>
+        <ul className="header-navigation hidden items-stretch gap-8 self-stretch font-bold text-white uppercase md:flex">
+          {children}
+        </ul>
 
         <Link
           href="https://zbawienie.pl"
-          className="relative bottom-0.5 my-3.5 block p-2 md:hidden"
+          className="relative bottom-0.5 my-3.5 block p-2 opacity-0 md:hidden"
         >
           <Menu size={16} strokeWidth={4} color="#ffffff" />
         </Link>

@@ -16,6 +16,49 @@ img {
   user-select: none;
 }
 
+.header-navigation li > a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 2rem 0;
+}
+
+.header-navigation li > a::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background-color: #e1d122;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.header-navigation li > a:hover {
+  transform: translateY(1.5px);
+}
+
+.header-navigation li > a:hover::before {
+  visibility: visible;
+  animation: header-navigation-highlight 180ms ease-out;
+}
+
+@keyframes header-navigation-highlight {
+  from {
+    background-color: #ffffff;
+  }
+
+  to {
+    background-color: #e1d122;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-navigation li > a:hover::before {
+    animation: none;
+  }
+}
+
 section {
   position: relative;
   width: 100%;

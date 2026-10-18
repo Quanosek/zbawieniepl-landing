@@ -13,6 +13,7 @@ import { emailPattern, leadFieldMaxLength } from "@/utils/lead-validation";
 type LeadFormProps = {
   type: LeadFormValues["type"];
   onSuccess?: () => void;
+  layout?: "hero" | "inline";
 };
 
 type LeadFormFields = LeadFormValues & { website: string };
@@ -26,7 +27,7 @@ const maxLengthRule = {
 const sanitizeNameInput = (value: string) =>
   value.replace(/[^\p{L}\s]/gu, "").replace(/\s{2,}/g, " ");
 
-export default function LeadForm({ type, onSuccess }: LeadFormProps) {
+export default function LeadForm({ type, onSuccess, layout = "hero" }: LeadFormProps) {
   const formId = useId();
   const [isSent, setIsSent] = useState(false);
   const {
@@ -75,7 +76,11 @@ export default function LeadForm({ type, onSuccess }: LeadFormProps) {
 
   return (
     <form
-      className="mx-auto -mt-30 w-full max-w-xl translate-y-1/2 bg-[#E8E8E8] p-8 text-black md:m-0 md:mt-0 md:w-3/8 md:translate-y-0"
+      className={`bg-[#E8E8E8] p-8 text-black ${
+        layout === "inline"
+          ? "relative w-full min-w-0"
+          : "mx-auto -mt-30 w-full max-w-xl translate-y-1/2 md:m-0 md:mt-0 md:w-3/8 md:translate-y-0"
+      }`}
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >

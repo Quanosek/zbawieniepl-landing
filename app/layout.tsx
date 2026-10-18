@@ -5,7 +5,6 @@ import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { SpeedInsights as VercelSpeedInsights } from "@vercel/speed-insights/next";
 
 import Analytics from "@/components/analytics";
-import Header from "@/components/header";
 import Footer from "@/components/footer";
 
 import "./globals.css";
@@ -29,7 +28,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <Analytics />
 
       <body className="flex min-h-full flex-col bg-[#ffffff] text-[#1e1e1e]">
-        <Header />
         <main className="w-full flex-1">{children}</main>
         <Footer />
 

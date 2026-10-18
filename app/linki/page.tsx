@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 
+import Header from "@/components/header";
+
 type RouteItem = {
   href: Route;
   title: string;
@@ -25,6 +27,8 @@ const routes: RouteItem[] = [
 export default function Page() {
   return (
     <div>
+      <Header />
+
       <section className="safe-space min-h-screen py-20! md:py-38!">
         <div className="mx-auto max-w-4xl">
           <h1 className="text-4xl leading-[1.2] font-bold md:text-5xl">Dostępne linki</h1>

@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { BadgeCheck, Lightbulb } from "lucide-react";
 
 import EcomailTracker from "@/components/ecomail-tracker";
+import Header from "@/components/header";
 import LeadForm from "@/components/lead-form";
 import SuccessModal from "@/components/success-modal";
 
@@ -14,6 +16,32 @@ export default function Page() {
   return (
     <div className={isSuccessModalOpen ? "max-h-screen overflow-hidden" : ""}>
       <EcomailTracker />
+
+      <Header>
+        <li>
+          <Link href="#co-otrzymasz">
+            <p>Co otrzymasz?</p>
+          </Link>
+        </li>
+
+        <li>
+          <Link href="#dlaczego-warto">
+            <p>Dlaczego warto?</p>
+          </Link>
+        </li>
+
+        <li>
+          <Link href="#jakie-tematy">
+            <p>Jakie tematy?</p>
+          </Link>
+        </li>
+
+        <li>
+          <Link href="#kontakt">
+            <p>Kontakt</p>
+          </Link>
+        </li>
+      </Header>
 
       <SuccessModal isOpen={isSuccessModalOpen} onClose={() => setIsSuccessModalOpen(false)} />
 
@@ -54,7 +82,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="flex-col items-start justify-center pt-45.5 md:pt-0">
+      <section id="co-otrzymasz" className="flex-col items-start justify-center pt-45.5 md:pt-0">
         <div className="absolute -top-60 z-30 mx-auto hidden h-140 w-full md:block">
           <Image
             src="/images/boski-plan-wiekow.png"
@@ -157,7 +185,7 @@ export default function Page() {
         </button>
       </section>
 
-      <section className="overflow-hidden bg-[#1e1e1e] text-white">
+      <section id="dlaczego-warto" className="overflow-hidden bg-[#1e1e1e] text-white">
         <div className="center-space z-10 text-center">
           <h2 className="mx-auto mt-20 max-w-[20ch] text-[44px] leading-[1.2] font-bold md:max-w-none md:text-5xl">
             Dlaczego warto się z&nbsp;tym zapoznać?
@@ -224,7 +252,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="flex-col items-center bg-[#f0f0f0]">
+      <section id="jakie-tematy" className="flex-col items-center bg-[#f0f0f0]">
         <div className="center-space text-center">
           <h2 className="mx-auto mt-20 max-w-[20ch] text-[44px] leading-[1.2] font-bold md:max-w-none md:text-5xl">
             Jakie tematy znajdziesz w&nbsp;środku?
@@ -237,7 +265,7 @@ export default function Page() {
 
           <p className="mt-6 leading-[1.4]">Oto część z&nbsp;nich:</p>
 
-          <div className="mt-10 flex flex-col bg-white px-6 py-7 text-start md:px-18 md:py-12">
+          <div className="mt-8 mb-12 flex flex-col bg-white px-6 py-7 text-start md:px-18 md:py-12">
             <ol>
               <li>
                 <span>1</span>
@@ -289,6 +317,18 @@ export default function Page() {
                 <p>Jak wygląda przyszłość świata według Biblii?</p>
               </li>
             </ol>
+          </div>
+        </div>
+      </section>
+
+      <section id="kontakt" className="bg-[#1e1e1e] py-12 text-white">
+        <div className="center-space flex flex-col justify-center gap-12">
+          <h2 className="mx-auto max-w-[20ch] text-[44px] leading-[1.2] font-bold md:max-w-none md:text-5xl">
+            Pozostań w kontakcie!
+          </h2>
+
+          <div className="w-full px-3 sm:px-4 md:mx-8 md:w-auto">
+            <LeadForm type="narodziny-jezusa" layout="inline" />
           </div>
         </div>
       </section>

@@ -1,15 +1,37 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { BadgeCheck, Lightbulb } from "lucide-react";
 
 import EcomailTracker from "@/components/ecomail-tracker";
+import Header from "@/components/header";
 import LeadForm from "@/components/lead-form";
 
 export default function Page() {
   return (
     <div>
       <EcomailTracker />
+
+      <Header>
+        <li>
+          <Link href="#co-otrzymasz">
+            <p>Co otrzymasz?</p>
+          </Link>
+        </li>
+
+        <li>
+          <Link href="#dlaczego-warto">
+            <p>Dlaczego warto?</p>
+          </Link>
+        </li>
+
+        <li>
+          <Link href="#kontakt">
+            <p>Kontakt</p>
+          </Link>
+        </li>
+      </Header>
 
       <section className="relative pt-30 md:h-200 md:pt-0">
         <div className="safe-space relative z-20 flex flex-col items-start justify-between gap-8 text-white md:top-50 md:flex-row md:gap-12">
@@ -45,7 +67,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="flex-col items-start justify-center pt-65 md:pt-0">
+      <section id="co-otrzymasz" className="flex-col items-start justify-center pt-65 md:pt-0">
         <div className="center-space flex flex-col justify-center gap-6 text-center md:mt-16!">
           <h2 className="mx-auto max-w-[20ch] text-[44px] leading-[1.2] font-bold md:max-w-none md:text-5xl">
             Co od nas otrzymasz?
@@ -117,7 +139,7 @@ export default function Page() {
         </button>
       </section>
 
-      <section className="overflow-hidden bg-[#1e1e1e] text-white">
+      <section id="dlaczego-warto" className="overflow-hidden bg-[#1e1e1e] text-white">
         <div className="center-space z-10 text-center">
           <h2 className="mx-auto mt-20 max-w-[20ch] text-[44px] leading-[1.2] font-bold md:max-w-none md:text-5xl">
             Dlaczego warto zapoznać się z&nbsp;tym tekstem?
@@ -190,6 +212,18 @@ export default function Page() {
             draggable={false}
             style={{ objectFit: "contain", objectPosition: "left top" }}
           />
+        </div>
+      </section>
+
+      <section id="kontakt" className="bg-[#f8f8f8] py-12">
+        <div className="center-space flex flex-col justify-center gap-12">
+          <h2 className="mx-auto max-w-[20ch] text-[44px] leading-[1.2] font-bold md:max-w-none md:text-5xl">
+            Pozostań w kontakcie!
+          </h2>
+
+          <div className="w-full px-3 sm:px-4 md:mx-8 md:w-auto">
+            <LeadForm type="narodziny-jezusa" layout="inline" />
+          </div>
         </div>
       </section>
     </div>

@@ -5,6 +5,7 @@
   "description": "Landing pages with advanced e-mail forms for Zbawienie.pl website",
   "author": "Jakub Kłało <jakub@klalo.pl>",
   "license": "MIT",
+  "packageManager": "pnpm@11.28.6",
   "engines": {
     "node": ">=24",
     "pnpm": ">=11"
