@@ -7,7 +7,10 @@ type EcomailSubscriber = {
 export async function subscribeToEcomail(listId: number, subscriber: EcomailSubscriber) {
   const apiKey = process.env.ECOMAIL_API_KEY;
 
-  if (!apiKey) throw new Error("Missing ECOMAIL_API_KEY");
+  if (!apiKey) {
+    console.warn(`Missing ECOMAIL_API_KEY - skipped Ecomail subscription for list ${listId}.`);
+    return;
+  }
 
   const response = await fetch(`https://api2.ecomailapp.cz/lists/${listId}/subscribe`, {
     method: "POST",
