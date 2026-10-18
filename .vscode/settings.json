@@ -4,8 +4,8 @@
     ".next/*": true,
     ".vercel/*": true,
     "node_modules/*": true,
-    "LICENSE": true,
-    "pnpm-lock.yaml": true,
-    "pnpm-workspace.yaml": true
+    "LICENSE": true
+    // "pnpm-lock.yaml": true,
+    // "pnpm-workspace.yaml": true
   }
 }
