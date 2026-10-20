@@ -328,7 +328,8 @@ export default function Page() {
               Zamów bezpłatny egzemplarz
             </h2>
             <p className="max-w-[55ch] text-base leading-relaxed">
-              Zostaw swój adres mailowy, a prześlemy Ci link, z którego pobierzesz ebook bezpłatnie.
+              Zostaw swój adres mailowy, a prześlemy Ci link, z którego pobierzesz e-book
+              bezpłatnie.
             </p>
           </div>
 

@@ -16,8 +16,8 @@ export const leads: Record<LeadFormValues["type"], LeadConfig> = {
     attachmentTitle: "egzemplarza książki „Boski Plan Wieków”",
     attachmentName: "„Boski Plan Wieków”",
     attachments: [
-      "Boski Plan Wieków - Wykłady Pisma Świętego Tom 1.pdf",
-      "Boski Plan Wieków - schemat (załącznik 1).pdf",
+      "boski-plan-wiekow-wyklady-pisma-swietego-tom-1.pdf",
+      "boski-plan-wiekow-schemat-zalacznik-1.pdf",
     ],
     ecomailListId: 3,
   },
@@ -25,13 +25,13 @@ export const leads: Record<LeadFormValues["type"], LeadConfig> = {
     subject: "Twój egzemplarz e-booka - „Dlaczego warto czytać Biblię?”",
     attachmentTitle: "e-booka „Dlaczego warto czytać Biblię?”",
     attachmentName: "„Dlaczego warto czytać Biblię?”",
-    attachments: ["Dlaczego warto czytać Biblię.pdf"],
+    attachments: ["dlaczego-warto-czytac-biblie.pdf"],
   },
   "narodziny-jezusa": {
     subject: "Twój egzemplarz e-booka - „Kiedy naprawdę narodził się Pan Jezus?”",
     attachmentTitle: "e-booka „Kiedy naprawdę narodził się Pan Jezus?”",
     attachmentName: "„Kiedy naprawdę narodził się Pan Jezus?”",
-    attachments: ["Kiedy naprawdę narodził się Pan Jezus.pdf"],
+    attachments: ["kiedy-naprawde-narodzil-sie-pan-jezus.pdf"],
     ecomailListId: 4,
   },
 };
