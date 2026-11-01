@@ -16,11 +16,15 @@ const routes: RouteItem[] = [
   },
   {
     href: "/dlaczego-warto",
-    title: "Dlaczego warto czytać Biblię",
+    title: "Dlaczego warto czytać Biblię?",
   },
   {
     href: "/narodziny-jezusa",
-    title: "Kiedy naprawdę narodził się Pan Jezus",
+    title: "Kiedy narodził się Pan Jezus?",
+  },
+  {
+    href: "/gdzie-sa-umarli",
+    title: "Gdzie są umarli?",
   },
 ];
 

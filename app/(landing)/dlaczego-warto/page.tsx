@@ -80,7 +80,7 @@ export default function Page() {
             i&nbsp;odnaleźć wskazówki pomocne na co dzień.
           </p>
 
-          <p>W e-booku znajdziesz m.in.:</p>
+          <p>W&nbsp;e-booku znajdziesz m.in.:</p>
         </div>
 
         <div className="safe-space my-12! flex flex-col gap-5 md:grid md:grid-cols-2">
@@ -224,18 +224,19 @@ export default function Page() {
 
       <section id="kontakt" className="bg-[#f8f8f8] py-12">
         <div className="center-space flex flex-col justify-center gap-12">
-          <div className="flex flex-col items-center gap-3 text-center">
+          <div className="flex flex-col items-center gap-6 text-center">
             <h2 className="mx-auto max-w-[20ch] text-[44px] leading-[1.2] font-bold md:max-w-none md:text-5xl">
               Zamów bezpłatny egzemplarz
             </h2>
+
             <p className="max-w-[55ch] text-base leading-relaxed">
-              Zostaw swój adres mailowy, a prześlemy Ci link, z którego pobierzesz e-book
+              Zostaw swój adres mailowy, a&nbsp;prześlemy Ci link, z&nbsp;którego pobierzesz e-book
               bezpłatnie.
             </p>
           </div>
 
           <div className="w-full px-3 sm:px-4 md:mx-8 md:w-auto">
-            <LeadForm type="narodziny-jezusa" layout="inline" />
+            <LeadForm type="dlaczego-warto" layout="inline" />
           </div>
         </div>
       </section>

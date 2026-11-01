@@ -117,7 +117,7 @@ export default function Page() {
           </h2>
 
           <p className="font-semibold">
-            „Boski Plan Wieków” to pierwszy tom klasycznego dzieła Charlesa T. Russella, które
+            „Boski Plan Wieków” to pierwszy tom klasycznego dzieła Charlesa T.&nbsp;Russella, które
             w&nbsp;uporządkowany sposób przedstawia główne nauki Biblii jako spójny i&nbsp;logiczny
             plan Boga wobec ludzkości.
           </p>
@@ -323,18 +323,19 @@ export default function Page() {
 
       <section id="kontakt" className="bg-[#1e1e1e] py-12 text-white">
         <div className="center-space flex flex-col justify-center gap-12">
-          <div className="flex flex-col items-center gap-3 text-center">
+          <div className="flex flex-col items-center gap-6 text-center">
             <h2 className="mx-auto max-w-[20ch] text-[44px] leading-[1.2] font-bold md:max-w-none md:text-5xl">
               Zamów bezpłatny egzemplarz
             </h2>
+
             <p className="max-w-[55ch] text-base leading-relaxed">
-              Zostaw swój adres mailowy, a prześlemy Ci link, z którego pobierzesz e-book
+              Zostaw swój adres mailowy, a&nbsp;prześlemy Ci link, z&nbsp;którego pobierzesz e-book
               bezpłatnie.
             </p>
           </div>
 
           <div className="w-full px-3 sm:px-4 md:mx-8 md:w-auto">
-            <LeadForm type="narodziny-jezusa" layout="inline" />
+            <LeadForm type="boski-plan-wiekow" layout="inline" />
           </div>
         </div>
       </section>

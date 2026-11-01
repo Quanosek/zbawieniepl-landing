@@ -26,6 +26,7 @@ export const leads: Record<LeadFormValues["type"], LeadConfig> = {
     attachmentTitle: "e-booka „Dlaczego warto czytać Biblię?”",
     attachmentName: "„Dlaczego warto czytać Biblię?”",
     attachments: ["dlaczego-warto-czytac-biblie.pdf"],
+    ecomailListId: 5,
   },
   "narodziny-jezusa": {
     subject: "Twój egzemplarz e-booka - „Kiedy naprawdę narodził się Pan Jezus?”",
@@ -33,5 +34,12 @@ export const leads: Record<LeadFormValues["type"], LeadConfig> = {
     attachmentName: "„Kiedy naprawdę narodził się Pan Jezus?”",
     attachments: ["kiedy-naprawde-narodzil-sie-pan-jezus.pdf"],
     ecomailListId: 4,
+  },
+  "gdzie-sa-umarli": {
+    subject: "Twój egzemplarz e-booka - „Gdzie są umarli?”",
+    attachmentTitle: "e-booka „Gdzie są umarli?”",
+    attachmentName: "„Gdzie są umarli?”",
+    attachments: ["gdzie-sa-umarli.pdf"],
+    ecomailListId: 6,
   },
 };
